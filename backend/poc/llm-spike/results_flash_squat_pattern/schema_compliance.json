@@ -1,0 +1,157 @@
+{
+  "total_runs": 6,
+  "parseable_runs": 6,
+  "compliant_runs": 5,
+  "compliance_rate": 0.8333333333333334,
+  "threshold": 0.9,
+  "passed": false,
+  "runs": [
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash_squat_pattern/s1/pattern-s1-run-01.json",
+      "sample_id": "s1",
+      "run_id": "pattern-s1-run-01",
+      "output": {
+        "status": "success",
+        "overall_summary": "视频中的徒手深蹲动作幅度足够，双脚抓地稳定。整体动作流畅，但在下蹲最低点观察到轻微的腰椎曲度消失现象。",
+        "memory_cue": "蹲到底部时保持腰背挺直，不要塌腰或撅臀。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "底部骨盆后倾",
+            "description": "在深蹲最低点（如 0:01, 0:05 处），腰部弧度减少，呈现轻微的骨盆后倾（尾巴骨内卷）。",
+            "how_to_fix": "保持核心张力，尝试在下降时将胸廓提起，维持脊柱的中立位。",
+            "cue": "胸口向上提。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 800,
+              "end_ms": 1500
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash_squat_pattern/s1/pattern-s1-run-02.json",
+      "sample_id": "s1",
+      "run_id": "pattern-s1-run-02",
+      "output": {
+        "status": "success",
+        "overall_summary": "深蹲深度充足，节奏稳定。动作过程中膝盖与脚尖基本对齐，重心保持较稳，但躯干有一定程度的前倾。",
+        "memory_cue": "下蹲时膝盖对准脚尖，起身尽量保持胸廓抬起。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "躯干前倾控制",
+            "description": "在下蹲及站起过程中，上半身有较明显的向前倾斜趋势（如00:02、00:05帧所示），这可能会增加腰椎压力或降低股四头肌参与度。",
+            "how_to_fix": "尝试在髋关节活动度允许的情况下，稍微增加胸腔高度，想象胸骨向上顶起，同时收紧核心以保持脊柱中立。",
+            "cue": "胸部挺起来。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 4000,
+              "end_ms": 6000
+            }
+          },
+          {
+            "rank": 2,
+            "title": "膝踝协调性",
+            "description": "在最低点转换站起阶段，膝盖轨迹整体稳定，但部分时刻脚踝角度变化较快，可能存在脚跟轻微离地的风险。",
+            "how_to_fix": "下蹲前预紧足底，确保整个脚掌踩实地面。起身时，感觉大脚趾、小脚趾和脚跟三点均匀发力。",
+            "cue": "脚掌抓地。",
+            "severity": "low",
+            "clip": {
+              "start_ms": 10000,
+              "end_ms": 11500
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash_squat_pattern/s1/pattern-s1-run-03.json",
+      "sample_id": "s1",
+      "run_id": "pattern-s1-run-03",
+      "validation_errors": [
+        "feedbacks[0].severity must be high, medium, or low"
+      ],
+      "output": {
+        "status": "success",
+        "overall_summary": "深蹲模式整体稳定，核心动作质量良好，但存在轻微膝盖内扣问题。",
+        "memory_cue": "下蹲时确保膝盖对准脚尖方向。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "膝盖轻微内扣",
+            "description": "在0.2-6.1秒下蹲至最低点阶段，双膝轨迹向中心偏移，未完全对齐第二脚趾方向。",
+            "how_to_fix": "主动建立足弓支撑，下蹲和起身时将膝盖向外推至与脚尖平行方向。",
+            "cue": "膝盖外展！",
+            "severity": ""
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash_squat_pattern/s3/pattern-s3-run-01.json",
+      "sample_id": "s3",
+      "run_id": "pattern-s3-run-01",
+      "output": {
+        "status": "success",
+        "overall_summary": "本次尝试完成了完整的深蹲动作，但负重较大导致稳定性下降。躯干控制尚可，但在下蹲底部出现脚跟轻微离地和躯干过度前倾的迹象。",
+        "memory_cue": "保持脚跟踩实地面，核心收紧防止脊柱前屈。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "脚跟离地",
+            "description": "在下蹲至最低点（约第2秒）时，双脚脚跟明显抬起，重心过于靠前，影响下肢发力链的稳定性和安全性。",
+            "how_to_fix": "有意识地将重心均匀分布于全脚掌或略微偏向足跟；穿着举重鞋或放置小片硬板以增加踝关节背屈幅度。",
+            "cue": "脚尖抓地，脚跟踩住。",
+            "severity": "high",
+            "clip": {
+              "start_ms": 2000,
+              "end_ms": 3500
+            }
+          },
+          {
+            "rank": 2,
+            "title": "躯干前倾过大",
+            "description": "在站起阶段，因髋部位置较低，导致胸廓向前倾斜角度过大，腰椎承受剪切力增加。",
+            "how_to_fix": "注意启动时将胸腔向上挺起，利用臀腿力量将杠铃垂直推过脚踝连线；如果柔韧性受限，考虑降低训练重量。",
+            "cue": "胸口向上顶。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 3500,
+              "end_ms": 5000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash_squat_pattern/s3/pattern-s3-run-02.json",
+      "sample_id": "s3",
+      "run_id": "pattern-s3-run-02",
+      "output": {
+        "status": "low_confidence",
+        "overall_summary": "视频画面模糊且动态捕捉不稳定，关键下肢关节在深蹲最低点阶段被遮挡或无法辨认，缺乏足够的信息支撑有效的动作质量反馈。",
+        "memory_cue": "请保证拍摄时髋膝踝全程可见，并尽量固定相机位置。",
+        "low_confidence_reason": "关键观察对象（膝、踝）在深蹲核心阶段（最低点附近）不可见或无法辨识。",
+        "feedbacks": []
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash_squat_pattern/s3/pattern-s3-run-03.json",
+      "sample_id": "s3",
+      "run_id": "pattern-s3-run-03",
+      "output": {
+        "status": "low_confidence",
+        "overall_summary": "受强烈逆光和画面模糊影响，关键肢节动作细节丢失，难以支撑可靠的姿势分析结论。",
+        "memory_cue": "请在光线均匀处录制，确保侧面视角清晰展示髋、膝、踝关节轨迹。",
+        "low_confidence_reason": "由于强烈逆光和画面分辨率低，膝关节、踝关节等关键观察点在核心动作阶段不可见或严重模糊，无法准确判断膝盖轨迹及重心稳定性。",
+        "feedbacks": []
+      }
+    }
+  ]
+}

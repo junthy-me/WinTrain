@@ -1,0 +1,47 @@
+{
+  "samples": [
+    {
+      "sample_id": "s1",
+      "total_parseable": 3,
+      "success_count": 3,
+      "low_confidence_count": 0,
+      "failed_count": 0,
+      "success_rate": 1,
+      "low_confidence_rate": 0
+    },
+    {
+      "sample_id": "s2",
+      "total_parseable": 3,
+      "success_count": 2,
+      "low_confidence_count": 0,
+      "failed_count": 0,
+      "success_rate": 0.6666666666666666,
+      "low_confidence_rate": 0
+    },
+    {
+      "sample_id": "s3",
+      "total_parseable": 3,
+      "success_count": 0,
+      "low_confidence_count": 2,
+      "failed_count": 0,
+      "success_rate": 0,
+      "low_confidence_rate": 0.6666666666666666
+    }
+  ],
+  "low_confidence_reason_records": [
+    {
+      "sample_id": "s3",
+      "run_id": "s3-run-02",
+      "reason": "肩、髋、膝、踝这四类主要关节中，膝关节和踝关节在关键动作阶段不可见，无法评估下肢姿态。"
+    },
+    {
+      "sample_id": "s3",
+      "run_id": "s3-run-03",
+      "reason": "膝、踝关节在关键动作阶段不可见，属于 2 类以上主要关节不可见。"
+    }
+  ],
+  "s1_s2_success_rate": 0.8333333333333334,
+  "s3_low_confidence_rate": 0.6666666666666666,
+  "threshold": 0.6666666666666666,
+  "passed": true
+}

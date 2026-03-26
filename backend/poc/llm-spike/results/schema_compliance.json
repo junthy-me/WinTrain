@@ -1,0 +1,241 @@
+{
+  "total_runs": 9,
+  "parseable_runs": 9,
+  "compliant_runs": 7,
+  "compliance_rate": 0.7777777777777778,
+  "threshold": 0.9,
+  "passed": false,
+  "runs": [
+    {
+      "path": "poc/llm-spike/testdata/llm_responses/s1/s1-run-01.json",
+      "sample_id": "s1",
+      "run_id": "s1-run-01",
+      "output": {
+        "status": "success",
+        "overall_summary": "深蹲动作幅度充足，髋部低于膝盖，但在下蹲最低点出现脚跟离地现象，影响稳定性。",
+        "memory_cue": "下蹲时重心后移，脚跟踩死地面。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "脚跟离地",
+            "description": "在下蹲最低点时，双脚脚跟明显离开地面，表明踝关节背屈受限或重心过度前移。",
+            "how_to_fix": "加强踝关节灵活性训练，下蹲时有意识将重心保持在足中或脚跟，或尝试穿举重鞋。",
+            "cue": "脚跟踩实地面。",
+            "severity": "high",
+            "clip": {
+              "start_ms": 0,
+              "end_ms": 2000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses/s1/s1-run-02.json",
+      "sample_id": "s1",
+      "run_id": "s1-run-02",
+      "output": {
+        "status": "success",
+        "overall_summary": "整体深蹲幅度很好，达到全蹲深度，但在最低点腰椎有轻微弯曲，下落过程控制可加强。",
+        "memory_cue": "核心收紧，慢下快起。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "最低点腰椎弯曲",
+            "description": "在深蹲最低点时，腰椎出现轻微的后倾弯曲（butt wink），核心稳定性不足。",
+            "how_to_fix": "下蹲前深吸一口气收紧核心，尝试稍微减小蹲幅直到能保持脊柱中立，或加强踝关节灵活性。",
+            "cue": "挺胸收腹。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 1000,
+              "end_ms": 3000
+            }
+          },
+          {
+            "rank": 2,
+            "title": "下落速度过快",
+            "description": "部分重复动作中下落速度较快，依赖牵张反射而非肌肉控制。",
+            "how_to_fix": "尝试用 3 秒时间缓慢下蹲，感受肌肉控制，底部停顿 1 秒后再起立。",
+            "cue": "慢下快起。",
+            "severity": "low",
+            "clip": {
+              "start_ms": 4000,
+              "end_ms": 6000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses/s1/s1-run-03.json",
+      "sample_id": "s1",
+      "run_id": "s1-run-03",
+      "output": {
+        "status": "success",
+        "overall_summary": "整体深蹲动作幅度充足，能达到平行或以下深度，但在部分重复动作的最低点出现脚跟轻微抬起迹象，可能影响稳定性。",
+        "memory_cue": "下蹲时重心向后坐，确保脚跟全程踩实地面。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "脚跟稳定性不足",
+            "description": "在第一次下蹲至最低点时（约 1.2 秒处），观察到脚跟有轻微离开地面的趋势，这通常意味着踝关节背屈受限或重心过于前移。",
+            "how_to_fix": "下蹲前主动收紧足弓，下降过程中有意识地将重心向足跟方向转移，必要时可垫高脚跟或进行踝关节灵活性训练。",
+            "cue": "脚跟踩死地面。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 1000,
+              "end_ms": 1400
+            }
+          },
+          {
+            "rank": 2,
+            "title": "膝盖轨迹控制",
+            "description": "虽然侧面视角难以完全判断膝盖内扣，但在上升阶段膝盖应持续指向脚尖方向，避免内收。",
+            "how_to_fix": "下蹲和站起时，主动用力将膝盖向外推开，与第二、三脚趾方向保持一致。",
+            "cue": "膝盖向外推。",
+            "severity": "low",
+            "clip": {
+              "start_ms": 4000,
+              "end_ms": 5000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses/s2/s2-run-01.json",
+      "sample_id": "s2",
+      "run_id": "s2-run-01",
+      "output": {
+        "status": "success",
+        "overall_summary": "动作整体连贯，但在后半程出现明显的身体后仰借力以及颈部前引代偿，影响背阔肌发力效率并增加颈椎压力。",
+        "memory_cue": "核心收紧，下巴微收，用胸椎伸展去迎接横杆。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "身体后仰借力",
+            "description": "在后半程动作中，为了将横杆拉下，上半身过度后仰，利用身体惯性而非背部肌肉力量完成动作。",
+            "how_to_fix": "减轻重量或主动收紧核心，保持躯干稳定，仅允许胸椎轻微后伸，避免髋部大幅移动。",
+            "cue": "核心绷紧，身体稳住。",
+            "severity": "high",
+            "clip": {
+              "start_ms": 13000,
+              "end_ms": 18000
+            }
+          },
+          {
+            "rank": 2,
+            "title": "颈部前引代偿",
+            "description": "在动作最低点，头部明显向前伸展去够横杆，这会增加颈椎压力并减少背部收缩感。",
+            "how_to_fix": "保持头部中立位，下巴微收，想象用胸部上侧去触碰横杆，而不是用头。",
+            "cue": "下巴微收，挺胸。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 15000,
+              "end_ms": 17000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses/s2/s2-run-02.json",
+      "sample_id": "s2",
+      "run_id": "s2-run-02",
+      "validation_errors": [
+        "status must be one of success, low_confidence, failed",
+        "overall_summary is required",
+        "memory_cue is required"
+      ],
+      "output": {
+        "status": "",
+        "overall_summary": "",
+        "memory_cue": "",
+        "low_confidence_reason": "",
+        "feedbacks": null
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses/s2/s2-run-03.json",
+      "sample_id": "s2",
+      "run_id": "s2-run-03",
+      "output": {
+        "status": "success",
+        "overall_summary": "高位下拉动作整体连贯，但在下拉过程中存在明显的头部前引和躯干过度后仰借力现象。",
+        "memory_cue": "保持下巴微收，用胸去靠近杠铃，而不是用头去够杠铃。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "头部前引",
+            "description": "在拉杆至最低点时，头部明显向前上方探出，试图通过颈部前伸来增加动作幅度，这会增加颈椎压力。",
+            "how_to_fix": "保持头部中立位，下巴微收，想象用锁骨去靠近横杆，而不是用头去迎杆。",
+            "cue": "下巴微收，胸迎杠。",
+            "severity": "high",
+            "clip": {
+              "start_ms": 3000,
+              "end_ms": 5000
+            }
+          },
+          {
+            "rank": 2,
+            "title": "躯干过度后仰",
+            "description": "动作启动时利用身体大幅度后仰的惯性将杠铃拉下，减少了背阔肌的孤立刺激。",
+            "how_to_fix": "核心收紧稳定躯干，允许轻微后倾（约 10-15 度），但主要依靠肩关节伸展和手肘下拉来完成动作。",
+            "cue": "核心收紧，手肘向下。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 14000,
+              "end_ms": 17000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses/s3/s3-run-01.json",
+      "sample_id": "s3",
+      "run_id": "s3-run-01",
+      "validation_errors": [
+        "status must be one of success, low_confidence, failed",
+        "overall_summary is required",
+        "memory_cue is required"
+      ],
+      "output": {
+        "status": "",
+        "overall_summary": "",
+        "memory_cue": "",
+        "low_confidence_reason": "",
+        "feedbacks": null
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses/s3/s3-run-02.json",
+      "sample_id": "s3",
+      "run_id": "s3-run-02",
+      "output": {
+        "status": "low_confidence",
+        "overall_summary": "视频画质严重模糊，且关键下肢关节在动作过程中不可见，无法进行可靠的技术分析。",
+        "memory_cue": "请重新拍摄，确保关键关节和完整动作阶段清晰可见。",
+        "low_confidence_reason": "肩、髋、膝、踝这四类主要关节中，膝关节和踝关节在关键动作阶段不可见，无法评估下肢姿态。",
+        "feedbacks": []
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses/s3/s3-run-03.json",
+      "sample_id": "s3",
+      "run_id": "s3-run-03",
+      "output": {
+        "status": "low_confidence",
+        "overall_summary": "视频画质模糊且下肢关键关节不可见，无法准确评估动作质量。",
+        "memory_cue": "请重新拍摄，确保关键关节和完整动作阶段清晰可见。",
+        "low_confidence_reason": "膝、踝关节在关键动作阶段不可见，属于 2 类以上主要关节不可见。",
+        "feedbacks": []
+      }
+    }
+  ]
+}

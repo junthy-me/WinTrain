@@ -1,0 +1,13 @@
+{
+  "total_calls": 9,
+  "latency_average_ms": 15179.333333333334,
+  "latency_min_ms": 5020,
+  "latency_max_ms": 35971,
+  "latency_threshold_ms": 30000,
+  "latency_passed": true,
+  "cost_average_cny": 0.010449066666666664,
+  "cost_threshold_cny": 0.2,
+  "cost_passed": true,
+  "calls_with_cost": 9,
+  "metrics_file_found": true
+}

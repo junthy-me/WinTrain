@@ -1,0 +1,52 @@
+{
+  "samples": [
+    {
+      "sample_id": "s1",
+      "total_parseable": 3,
+      "success_count": 1,
+      "low_confidence_count": 1,
+      "failed_count": 1,
+      "success_rate": 0.3333333333333333,
+      "low_confidence_rate": 0.3333333333333333
+    },
+    {
+      "sample_id": "s2",
+      "total_parseable": 3,
+      "success_count": 3,
+      "low_confidence_count": 0,
+      "failed_count": 0,
+      "success_rate": 1,
+      "low_confidence_rate": 0
+    },
+    {
+      "sample_id": "s3",
+      "total_parseable": 3,
+      "success_count": 1,
+      "low_confidence_count": 2,
+      "failed_count": 0,
+      "success_rate": 0.3333333333333333,
+      "low_confidence_rate": 0.6666666666666666
+    }
+  ],
+  "low_confidence_reason_records": [
+    {
+      "sample_id": "s1",
+      "run_id": "spec-s1-run-01",
+      "reason": "拍摄角度导致无法判断膝盖轨迹（需冠状面视角）及杠铃路径，且无负重器械导致生物力学特征缺失。"
+    },
+    {
+      "sample_id": "s3",
+      "run_id": "spec-s3-run-01",
+      "reason": "深蹲最低点未完整出现在视频中，无法判断深度和关键错误。"
+    },
+    {
+      "sample_id": "s3",
+      "run_id": "spec-s3-run-03",
+      "reason": "深蹲最低点未完整出现在视频中，无法判断深度和关键错误"
+    }
+  ],
+  "s1_s2_success_rate": 0.6666666666666666,
+  "s3_low_confidence_rate": 0.6666666666666666,
+  "threshold": 0.6666666666666666,
+  "passed": true
+}

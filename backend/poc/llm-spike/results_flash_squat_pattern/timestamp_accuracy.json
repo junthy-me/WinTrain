@@ -1,0 +1,36 @@
+{
+  "records": [
+    {
+      "sample_id": "s1",
+      "run_id": "pattern-s1-run-01",
+      "clip_found": true,
+      "start_error_ms": 800,
+      "end_error_ms": 1500
+    },
+    {
+      "sample_id": "s1",
+      "run_id": "pattern-s1-run-02",
+      "clip_found": true,
+      "start_error_ms": 4000,
+      "end_error_ms": 3000
+    },
+    {
+      "sample_id": "s1",
+      "run_id": "pattern-s1-run-03",
+      "clip_found": false
+    }
+  ],
+  "evaluated_runs": 3,
+  "with_clip_runs": 2,
+  "missing_clip_runs": 1,
+  "missing_clip_rate": 0.3333333333333333,
+  "within_1s_count": 0,
+  "within_1s_rate": 0,
+  "threshold_ms": 1000,
+  "passed": false,
+  "notes": [
+    "skip sample s3: annotation clip is not valid",
+    "skip sample s3: annotation clip is not valid",
+    "skip sample s3: annotation clip is not valid"
+  ]
+}

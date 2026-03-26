@@ -1,0 +1,38 @@
+{
+  "samples": [
+    {
+      "sample_id": "s1",
+      "total_parseable": 3,
+      "success_count": 3,
+      "low_confidence_count": 0,
+      "failed_count": 0,
+      "success_rate": 1,
+      "low_confidence_rate": 0
+    },
+    {
+      "sample_id": "s3",
+      "total_parseable": 3,
+      "success_count": 1,
+      "low_confidence_count": 2,
+      "failed_count": 0,
+      "success_rate": 0.3333333333333333,
+      "low_confidence_rate": 0.6666666666666666
+    }
+  ],
+  "low_confidence_reason_records": [
+    {
+      "sample_id": "s3",
+      "run_id": "pattern-s3-run-02",
+      "reason": "关键观察对象（膝、踝）在深蹲核心阶段（最低点附近）不可见或无法辨识。"
+    },
+    {
+      "sample_id": "s3",
+      "run_id": "pattern-s3-run-03",
+      "reason": "由于强烈逆光和画面分辨率低，膝关节、踝关节等关键观察点在核心动作阶段不可见或严重模糊，无法准确判断膝盖轨迹及重心稳定性。"
+    }
+  ],
+  "s1_s2_success_rate": 1,
+  "s3_low_confidence_rate": 0.6666666666666666,
+  "threshold": 0.6666666666666666,
+  "passed": true
+}

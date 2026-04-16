@@ -136,6 +136,7 @@ Go 后端负责：
 
 在 Review 代码时，必须评估：
 
+**通用**
 - 是否符合 PRD
 - 是否符合当前 UI（fe/** 为当前 UI 真相）
 - 是否符合动作知识文档
@@ -145,6 +146,18 @@ Go 后端负责：
 - 测试是否充分
 - 发布与失败场景是否合理
 - 引入的复杂度是否必要
+
+**后端专项**
+- 配额操作是否使用 Reserve/CommitReserved/RollbackReserved 两阶段协议，避免 CanAnalyze+ConsumeSuccess 竞态
+- 订阅校验（AppStoreVerifier）是否真实调用了 Apple 服务器，而非占位假实现
+- 内存中的配额/订阅状态是否已明确标注为 MVP 临时方案（重启后清零）
+- SessionID 是否使用 newSessionID()（crypto/rand）而非时间戳
+- LLM 输出解析变更（normalizeProviderResponse / extractJSONObject）是否有对应单元测试覆盖
+
+**iOS 专项**
+- 视频上传是否正确抛出文件读取错误（不使用 try?）
+- URLSession 是否配置了不低于 120s 的超时（对应服务端 75s 分析超时）
+- StoreKit 交易验证是否经过 checkVerified，未验证交易不得进入业务流程
 
 ## 9. MVP 领域提醒
 
@@ -197,3 +210,31 @@ Go 后端负责：
 - 复杂推荐系统
 - 过度工程化的微服务架构
 - 管理后台 UI
+
+## 13. 开发工具规范
+
+**测试命令（每次修改后执行）**
+
+```bash
+# 后端：全量测试
+cd backend && go test ./...
+
+# 后端：仅编译验证（快速检查）
+cd backend && go build ./...
+
+# iOS：本地 StoreKit 测试（需 Xcode）
+xcrun xcodebuild test -project ios/WinTrain.xcodeproj \
+  -scheme WinTrainStoreKitTests -destination "platform=iOS Simulator,name=iPhone 16"
+```
+
+**修改 LLM Prompt 的规范**
+
+`backend/internal/analysis/prompts.go` 中的 prompt 变更必须：
+1. 通过 `/opsx:new` 创建变更工件（proposal → specs → design → tasks）
+2. 对应修改或新增 `analysis/service_test.go` 中的 `TestExtractJSONObject` / `TestNormalizeProviderResponse` 测试
+3. 若 prompt 结构变更影响输出 schema，同步更新 `docs/contracts/analysis-api.md`
+
+**已知 MVP 临时状态（不是 bug，是有意决策）**
+
+- 配额 / 订阅状态为纯内存：服务重启后清零。正式上线前需接入持久化存储。
+- AppStoreVerifier 为占位实现：不调用 Apple 服务器。正式上线前需接入 App Store Server API。

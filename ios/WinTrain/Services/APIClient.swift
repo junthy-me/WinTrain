@@ -3,7 +3,13 @@ import os
 
 struct APIClient {
     let baseURL: URL
-    private let session: URLSession = .shared
+    // analysis requests can take up to 75s on the server side; give a comfortable margin.
+    private let session: URLSession = {
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 120
+        config.timeoutIntervalForResource = 120
+        return URLSession(configuration: config)
+    }()
     private static let logger = Logger(subsystem: "com.wintrain.app", category: "network")
 
     func fetchQuota(installID: String) async throws -> QuotaSnapshot {
@@ -80,7 +86,11 @@ struct APIClient {
     }
 
     private func multipartBody(boundary: String, exerciseID: String, videoURL: URL) throws -> Data {
-        guard let videoData = try? Data(contentsOf: videoURL) else {
+        let videoData: Data
+        do {
+            videoData = try Data(contentsOf: videoURL)
+        } catch {
+            Self.logger.error("Failed to read video file: \(error.localizedDescription, privacy: .public)")
             throw AppError.invalidVideo
         }
 

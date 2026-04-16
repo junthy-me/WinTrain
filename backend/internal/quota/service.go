@@ -15,18 +15,31 @@ type State struct {
 	DailyWindowStart  time.Time
 }
 
+const (
+	DefaultFreeTotalLimit    = 3000
+	DefaultDailySuccessLimit = 1000
+)
+
 type Service struct {
-	mu          sync.Mutex
-	states      map[string]*State
-	snapshotTTL time.Duration
-	now         func() time.Time
+	mu                sync.Mutex
+	states            map[string]*State
+	snapshotTTL       time.Duration
+	freeTotalLimit    int
+	dailySuccessLimit int
+	now               func() time.Time
 }
 
 func NewService(snapshotTTL time.Duration) *Service {
+	return NewServiceWithLimits(snapshotTTL, DefaultFreeTotalLimit, DefaultDailySuccessLimit)
+}
+
+func NewServiceWithLimits(snapshotTTL time.Duration, freeTotalLimit int, dailySuccessLimit int) *Service {
 	return &Service{
-		states:      map[string]*State{},
-		snapshotTTL: snapshotTTL,
-		now:         time.Now,
+		states:            map[string]*State{},
+		snapshotTTL:       snapshotTTL,
+		freeTotalLimit:    freeTotalLimit,
+		dailySuccessLimit: dailySuccessLimit,
+		now:               time.Now,
 	}
 }
 
@@ -68,6 +81,47 @@ func (s *Service) CanConsumeSuccess(installID string, isPro bool) bool {
 	defer s.mu.Unlock()
 	state := s.ensureStateLocked(installID, s.now().UTC())
 	return state.FreeTotalUsed < state.FreeTotalLimit && state.DailySuccessUsed < state.DailySuccessLimit
+}
+
+// Reserve atomically checks and pre-deducts one success slot.
+// Returns false (with no side-effects) if the quota is exhausted.
+// On true, the caller must call either CommitReserved (analysis succeeded)
+// or RollbackReserved (analysis failed) to finalise the reservation.
+func (s *Service) Reserve(installID string, isPro bool) bool {
+	if isPro {
+		return true
+	}
+
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	state := s.ensureStateLocked(installID, s.now().UTC())
+	if state.FreeTotalUsed >= state.FreeTotalLimit || state.DailySuccessUsed >= state.DailySuccessLimit {
+		return false
+	}
+	state.FreeTotalUsed++
+	state.DailySuccessUsed++
+	return true
+}
+
+// CommitReserved is a no-op: the reservation has already been applied by Reserve.
+// It exists to make call-sites explicit about the two-phase protocol.
+func (s *Service) CommitReserved(_ string, _ bool) {}
+
+// RollbackReserved undoes a prior Reserve call (e.g. when analysis failed).
+func (s *Service) RollbackReserved(installID string, isPro bool) {
+	if isPro {
+		return
+	}
+
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	state := s.ensureStateLocked(installID, s.now().UTC())
+	if state.FreeTotalUsed > 0 {
+		state.FreeTotalUsed--
+	}
+	if state.DailySuccessUsed > 0 {
+		state.DailySuccessUsed--
+	}
 }
 
 func (s *Service) ConsumeSuccess(installID string, isPro bool) domain.QuotaSnapshot {
@@ -112,8 +166,8 @@ func (s *Service) ensureStateLocked(installID string, now time.Time) *State {
 	state := s.states[installID]
 	if state == nil {
 		state = &State{
-			FreeTotalLimit:    3000,
-			DailySuccessLimit: 1000,
+			FreeTotalLimit:    s.freeTotalLimit,
+			DailySuccessLimit: s.dailySuccessLimit,
 			DailyWindowStart:  startOfDay(now),
 		}
 		s.states[installID] = state

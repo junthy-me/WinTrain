@@ -2,6 +2,8 @@ package httpapi
 
 import (
 	"context"
+	"crypto/rand"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"io"
@@ -80,10 +82,20 @@ func (s *Server) handleAnalysis(writer http.ResponseWriter, request *http.Reques
 		writeError(writer, domain.ErrInvalidExerciseID)
 		return
 	}
-	if !s.entitlement.CanAnalyze(installID) {
+
+	// Reserve quota atomically before starting the expensive LLM call.
+	// This prevents concurrent requests from both passing the quota gate.
+	if !s.entitlement.Reserve(installID) {
 		writeError(writer, domain.ErrQuotaExhausted)
 		return
 	}
+	reserved := true
+	defer func() {
+		if reserved {
+			// Analysis did not succeed (error path or low_confidence): return the slot.
+			s.entitlement.RollbackReserved(installID)
+		}
+	}()
 
 	file, header, err := request.FormFile("video")
 	if err != nil {
@@ -108,7 +120,7 @@ func (s *Server) handleAnalysis(writer http.ResponseWriter, request *http.Reques
 	}
 	defer cleanup()
 
-	sessionID := "as_" + time.Now().UTC().Format("20060102T150405.000000000")
+	sessionID := newSessionID()
 	result, err := s.analysis.Run(request.Context(), analysis.RunRequest{
 		SessionID:  sessionID,
 		ExerciseID: exerciseID,
@@ -134,11 +146,16 @@ func (s *Server) handleAnalysis(writer http.ResponseWriter, request *http.Reques
 
 	switch result.Status {
 	case "success":
-		response.Quota = s.entitlement.ConsumeSuccess(installID)
+		// Commit: keep the reservation, return updated snapshot.
+		reserved = false
+		s.entitlement.CommitReserved(installID)
+		response.Quota = s.entitlement.Snapshot(installID)
 		writeJSON(writer, http.StatusOK, response)
 	case "low_confidence":
+		// Rollback via defer: low_confidence does not consume quota.
 		writeJSON(writer, domain.ErrAnalysisLowConfidence.HTTPStatus, response)
 	default:
+		// Rollback via defer: provider failure does not consume quota.
 		writeJSON(writer, http.StatusBadGateway, response)
 	}
 }
@@ -262,6 +279,13 @@ func toAppError(err error) *domain.AppError {
 func allowedVideoFilename(filename string) bool {
 	extension := strings.ToLower(filepath.Ext(filename))
 	return extension == ".mp4" || extension == ".mov"
+}
+
+// newSessionID generates a collision-resistant session ID using 8 random bytes.
+func newSessionID() string {
+	buf := make([]byte, 8)
+	_, _ = rand.Read(buf)
+	return "as_" + hex.EncodeToString(buf)
 }
 
 func Run(ctx context.Context, server *http.Server) error {

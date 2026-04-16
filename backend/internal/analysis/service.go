@@ -148,11 +148,12 @@ func (p *OpenAICompatibleProvider) Analyze(ctx context.Context, request Provider
 		return nil, err
 	}
 
-	content := []map[string]any{
+	systemPrompt := promptForExercise(request.ExerciseID)
+	userContent := []map[string]any{
 		videoPart,
 		{
 			"type": "text",
-			"text": promptForExercise(request.ExerciseID),
+			"text": "请分析这段视频，并严格遵守 system 中的要求。只返回一个 JSON 对象。",
 		},
 	}
 
@@ -161,8 +162,12 @@ func (p *OpenAICompatibleProvider) Analyze(ctx context.Context, request Provider
 		"temperature": p.Temperature,
 		"messages": []map[string]any{
 			{
+				"role":    "system",
+				"content": systemPrompt,
+			},
+			{
 				"role":    "user",
-				"content": content,
+				"content": userContent,
 			},
 		},
 	}

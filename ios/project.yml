@@ -1,0 +1,69 @@
+name: WinTrain
+options:
+  deploymentTarget:
+    iOS: "16.0"
+settings:
+  base:
+    PRODUCT_BUNDLE_IDENTIFIER: com.wintrain.app
+    SWIFT_VERSION: 6.0
+schemes:
+  WinTrainStoreKitTests:
+    build:
+      targets:
+        WinTrainStoreKitSupport: [test]
+        WinTrainStoreKitTests: [test]
+    test:
+      targets:
+        - name: WinTrainStoreKitTests
+  WinTrain:
+    build:
+      targets:
+        WinTrainStoreKitSupport: [run, test]
+        WinTrain: [run, test]
+    run:
+      executable: WinTrain
+      storeKitConfiguration: WinTrainLocal.storekit
+targets:
+  WinTrainStoreKitSupport:
+    type: framework
+    platform: iOS
+    sources:
+      - path: WinTrainStoreKitSupport
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wintrain.storekit.support
+        PRODUCT_NAME: WinTrainStoreKitSupport
+        GENERATE_INFOPLIST_FILE: YES
+  WinTrain:
+    type: application
+    platform: iOS
+    sources:
+      - path: WinTrain
+      - path: WinTrainLocal.storekit
+        buildPhase: resources
+    dependencies:
+      - target: WinTrainStoreKitSupport
+    settings:
+      base:
+        PRODUCT_NAME: WinTrain
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_CFBundleDisplayName: WinTrain
+        INFOPLIST_KEY_NSPhotoLibraryUsageDescription: WinTrain needs access to your video library to upload training videos.
+        INFOPLIST_KEY_NSCameraUsageDescription: WinTrain needs camera access to record training videos.
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: WinTrain needs microphone access while recording training videos.
+  WinTrainStoreKitTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: WinTrainStoreKitTests
+      - path: WinTrainLocal.storekit
+        buildPhase: resources
+    dependencies:
+      - target: WinTrainStoreKitSupport
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wintrain.app.tests
+        GENERATE_INFOPLIST_FILE: YES
+        IPHONEOS_DEPLOYMENT_TARGET: 17.0

@@ -1,0 +1,27 @@
+{
+  "samples": [
+    {
+      "sample_id": "s1",
+      "total_parseable": 3,
+      "success_count": 2,
+      "low_confidence_count": 0,
+      "failed_count": 0,
+      "success_rate": 0.6666666666666666,
+      "low_confidence_rate": 0
+    },
+    {
+      "sample_id": "s2",
+      "total_parseable": 3,
+      "success_count": 3,
+      "low_confidence_count": 0,
+      "failed_count": 0,
+      "success_rate": 1,
+      "low_confidence_rate": 0
+    }
+  ],
+  "low_confidence_reason_records": [],
+  "s1_s2_success_rate": 0.8333333333333334,
+  "s3_low_confidence_rate": 0,
+  "threshold": 0.6666666666666666,
+  "passed": false
+}

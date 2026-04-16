@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #11a4d4;
+  --color-accent: #10b748;
+  --color-background-dark: #0a1214;
+  --color-card-dark: #142024;
+  --color-border-dark: #1e2c31;
+  --color-secondary-text: #8a9496;
+
+  --font-display: "Inter", "Noto Sans SC", system-ui, sans-serif;
+  --font-sans: "Inter", "Noto Sans SC", system-ui, sans-serif;
+}
+
+body {
+  background-color: #000; /* Outer background for desktop view */
+  color: #fff;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hide scrollbar for clean app-like feel */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

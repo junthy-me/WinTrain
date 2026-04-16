@@ -1,0 +1,729 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00E05EC4145CB461177D5427 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58A91381DFEE819E25F5D0D /* AppRouter.swift */; };
+		0385B1D501AB0659EFB0A150 /* WinTrainLocal.storekit.json in Resources */ = {isa = PBXBuildFile; fileRef = 6CFD8CB7A9A44F171B6204F9 /* WinTrainLocal.storekit.json */; };
+		0C4EAE899B185253E1EE1855 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DD70C30F15B54A2B037F9A /* ProfileView.swift */; };
+		1161114EA48E5BC67EAA7939 /* WinTrainStoreKitSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD719C2A27DC0DB27E29852F /* WinTrainStoreKitSupport.framework */; };
+		11B413291B0C867E517B1D45 /* VideoCapturePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FB0588AA2A0CE72206AC58 /* VideoCapturePicker.swift */; };
+		21427BCCF30A644F53027A45 /* AnalysisFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D2FD710078813FBD4375EC /* AnalysisFlowViewModel.swift */; };
+		25D0D45650D8F319498AFFCF /* AnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8F2D70C4F57589FA77914 /* AnalysisService.swift */; };
+		2F909A543C3EEE35A8CA5807 /* WinTrainStoreKitSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD719C2A27DC0DB27E29852F /* WinTrainStoreKitSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3EB4A0DCB84CE3B7DE90A655 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70EE386ABEB2BFFB464C671 /* DesignSystem.swift */; };
+		3F8D3496DEA14D7A63F7718C /* StoreKitCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ABA0BC832ED46C0A11D06A /* StoreKitCoordinator.swift */; };
+		517EFA2A9E6CAC4FBB4F1A2A /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A265F562EBFFAD4413B19F /* APIClient.swift */; };
+		5769EE99C4A9E9021AE07A82 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41362917EF79CED4E331DC6 /* HomeView.swift */; };
+		6FD527B2BE22C202054BADC6 /* GuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D5BC69F5597FF7F3BE8B1B /* GuideView.swift */; };
+		76A686DBE7AD09A7AD5045AE /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10736936206E299E464AA54 /* HistoryView.swift */; };
+		8BE15E478E5912D70B11E310 /* AnalyzingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461B7E3F7812CCE6D6D1925F /* AnalyzingView.swift */; };
+		938B36F148F3F9CA423B6F2C /* VideoClipService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA009BE58679219A52BA77B1 /* VideoClipService.swift */; };
+		975154C511174189151593D6 /* InstallIDStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B17684BF8BA4DB62C699AF /* InstallIDStore.swift */; };
+		A22BA8DA4A7546DF00DDC098 /* HistoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1EA94F6EDB9E786C85C1C3 /* HistoryDetailView.swift */; };
+		A79196A4E5A0485775C29882 /* WinTrainLocal.storekit in Resources */ = {isa = PBXBuildFile; fileRef = AFDA8D39BEB7B6DB2885F565 /* WinTrainLocal.storekit */; };
+		A8E695FC59168A1DEA54C76B /* WinTrainStoreKitSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD719C2A27DC0DB27E29852F /* WinTrainStoreKitSupport.framework */; };
+		A9DF5465C67734DC19772770 /* HistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DEA85B258CC0902414EDCB /* HistoryStore.swift */; };
+		BEEEA7C8C6491D6D9AF5A22E /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5191D73F3CC85C76A2B008 /* SelectionView.swift */; };
+		BEF02B9874C114EF63FFC3C8 /* WinTrainLocal.storekit in Resources */ = {isa = PBXBuildFile; fileRef = AFDA8D39BEB7B6DB2885F565 /* WinTrainLocal.storekit */; };
+		C5111E68FE8AF7F6AC17782F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C71765775FFD228AD4548FD /* HomeViewModel.swift */; };
+		CDDF88B025652D0BC6CC5F1A /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F2951CFBF4D98F8DF3DC3B /* PaywallView.swift */; };
+		D4ED3DD976E81312C5650159 /* SubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C725E0736E8C4255EA728237 /* SubscriptionService.swift */; };
+		DA2C2D20BC227148B3C34151 /* AppModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B4B3823BB207A2E978DC3 /* AppModels.swift */; };
+		E0962C1AC2F08BEA9688FD4F /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B923376C57337F53B6E9018 /* AppEnvironment.swift */; };
+		E16F6D4645C5F0A99B268302 /* StoreKitLocalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3F0B4C46EF4ADF7A3E60B1 /* StoreKitLocalTests.swift */; };
+		E4E01D922F95AB0ECD4946B8 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9343E793D27F3B1F0B8E087 /* ResultView.swift */; };
+		E7E3CB60C0F3D676E45F9B91 /* RootTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7165DCCE116CF565D4D632 /* RootTabView.swift */; };
+		EBA883A8EA554C87C954F460 /* QuotaStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5487E9699431CCDBA053924 /* QuotaStore.swift */; };
+		F064B2BCE1DFC91D4D5B8196 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAB32B1EC22C77E7169156B7 /* Assets.xcassets */; };
+		F4404FE83071B657AB6BC0DD /* ImportedVideoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF412FA3A04E5AECEEBB00E8 /* ImportedVideoStore.swift */; };
+		FBA72372C87210265DEC66CB /* WinTrainStoreKitSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD719C2A27DC0DB27E29852F /* WinTrainStoreKitSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FC2A51E850AD8AC88C23451C /* WinTrainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23FBCB4B4E2EC2558833D5B /* WinTrainApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		601502235DB801B944FCAD26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 226ECA659B0F4E81A6BD7A64 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7F1B23A1B000509B84D3E8A0;
+			remoteInfo = WinTrainStoreKitSupport;
+		};
+		B959FE4C9F163092B5906841 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 226ECA659B0F4E81A6BD7A64 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7F1B23A1B000509B84D3E8A0;
+			remoteInfo = WinTrainStoreKitSupport;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		58D1C9FC065A51CC7694CF4B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2F909A543C3EEE35A8CA5807 /* WinTrainStoreKitSupport.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9353BDA019FF60CCB0B97CE3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FBA72372C87210265DEC66CB /* WinTrainStoreKitSupport.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		16A265F562EBFFAD4413B19F /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		22ABA0BC832ED46C0A11D06A /* StoreKitCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitCoordinator.swift; sourceTree = "<group>"; };
+		241B4B3823BB207A2E978DC3 /* AppModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModels.swift; sourceTree = "<group>"; };
+		2F3F0B4C46EF4ADF7A3E60B1 /* StoreKitLocalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitLocalTests.swift; sourceTree = "<group>"; };
+		2F5191D73F3CC85C76A2B008 /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
+		32FB0588AA2A0CE72206AC58 /* VideoCapturePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCapturePicker.swift; sourceTree = "<group>"; };
+		33B17684BF8BA4DB62C699AF /* InstallIDStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallIDStore.swift; sourceTree = "<group>"; };
+		3A7165DCCE116CF565D4D632 /* RootTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabView.swift; sourceTree = "<group>"; };
+		40F2951CFBF4D98F8DF3DC3B /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
+		461B7E3F7812CCE6D6D1925F /* AnalyzingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzingView.swift; sourceTree = "<group>"; };
+		46C0E00BB46C360B1F9C76D3 /* WinTrainStoreKitTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = WinTrainStoreKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		46D5BC69F5597FF7F3BE8B1B /* GuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideView.swift; sourceTree = "<group>"; };
+		4C71765775FFD228AD4548FD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		4FB8F2D70C4F57589FA77914 /* AnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisService.swift; sourceTree = "<group>"; };
+		64DEA85B258CC0902414EDCB /* HistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStore.swift; sourceTree = "<group>"; };
+		6CFD8CB7A9A44F171B6204F9 /* WinTrainLocal.storekit.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = WinTrainLocal.storekit.json; sourceTree = "<group>"; };
+		7B923376C57337F53B6E9018 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		A0DD70C30F15B54A2B037F9A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		AFDA8D39BEB7B6DB2885F565 /* WinTrainLocal.storekit */ = {isa = PBXFileReference; path = WinTrainLocal.storekit; sourceTree = "<group>"; };
+		B10736936206E299E464AA54 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		B5487E9699431CCDBA053924 /* QuotaStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotaStore.swift; sourceTree = "<group>"; };
+		BEE2E3E51E9C8D30587B8B02 /* WinTrain.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = WinTrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF412FA3A04E5AECEEBB00E8 /* ImportedVideoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedVideoStore.swift; sourceTree = "<group>"; };
+		C23FBCB4B4E2EC2558833D5B /* WinTrainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinTrainApp.swift; sourceTree = "<group>"; };
+		C725E0736E8C4255EA728237 /* SubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionService.swift; sourceTree = "<group>"; };
+		CD719C2A27DC0DB27E29852F /* WinTrainStoreKitSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WinTrainStoreKitSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D70EE386ABEB2BFFB464C671 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		D9343E793D27F3B1F0B8E087 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		DA009BE58679219A52BA77B1 /* VideoClipService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoClipService.swift; sourceTree = "<group>"; };
+		DA1EA94F6EDB9E786C85C1C3 /* HistoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailView.swift; sourceTree = "<group>"; };
+		E41362917EF79CED4E331DC6 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F58A91381DFEE819E25F5D0D /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
+		F7D2FD710078813FBD4375EC /* AnalysisFlowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisFlowViewModel.swift; sourceTree = "<group>"; };
+		FAB32B1EC22C77E7169156B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		23EDC47E555B33BDF36019F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8E695FC59168A1DEA54C76B /* WinTrainStoreKitSupport.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83D65FB4B29D3C319817F80B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1161114EA48E5BC67EAA7939 /* WinTrainStoreKitSupport.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0EE19BF0D036DE888A89D8EB = {
+			isa = PBXGroup;
+			children = (
+				AFDA8D39BEB7B6DB2885F565 /* WinTrainLocal.storekit */,
+				98F9E980F1E767919E8D2BFD /* WinTrain */,
+				63AA47968648A1A05D89B04E /* WinTrainStoreKitSupport */,
+				D4A345C453AA233D58EBC2DA /* WinTrainStoreKitTests */,
+				395CFDF82F1F0FDB2A3502CA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		395CFDF82F1F0FDB2A3502CA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BEE2E3E51E9C8D30587B8B02 /* WinTrain.app */,
+				CD719C2A27DC0DB27E29852F /* WinTrainStoreKitSupport.framework */,
+				46C0E00BB46C360B1F9C76D3 /* WinTrainStoreKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		49521DEF9E795EAD5FC8A267 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				7B923376C57337F53B6E9018 /* AppEnvironment.swift */,
+				F58A91381DFEE819E25F5D0D /* AppRouter.swift */,
+				C23FBCB4B4E2EC2558833D5B /* WinTrainApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		63AA47968648A1A05D89B04E /* WinTrainStoreKitSupport */ = {
+			isa = PBXGroup;
+			children = (
+				22ABA0BC832ED46C0A11D06A /* StoreKitCoordinator.swift */,
+			);
+			path = WinTrainStoreKitSupport;
+			sourceTree = "<group>";
+		};
+		8D3F7BC5A3873255CCAC7A99 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F7D2FD710078813FBD4375EC /* AnalysisFlowViewModel.swift */,
+				4C71765775FFD228AD4548FD /* HomeViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		98F9E980F1E767919E8D2BFD /* WinTrain */ = {
+			isa = PBXGroup;
+			children = (
+				FAB32B1EC22C77E7169156B7 /* Assets.xcassets */,
+				49521DEF9E795EAD5FC8A267 /* App */,
+				9C2F53712A3AD94A6EC2D883 /* Models */,
+				997C18F46D4A0C9931FB4279 /* Services */,
+				8D3F7BC5A3873255CCAC7A99 /* ViewModels */,
+				DA778DCDFCC1E19952DAB32B /* Views */,
+			);
+			path = WinTrain;
+			sourceTree = "<group>";
+		};
+		997C18F46D4A0C9931FB4279 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4FB8F2D70C4F57589FA77914 /* AnalysisService.swift */,
+				16A265F562EBFFAD4413B19F /* APIClient.swift */,
+				64DEA85B258CC0902414EDCB /* HistoryStore.swift */,
+				BF412FA3A04E5AECEEBB00E8 /* ImportedVideoStore.swift */,
+				33B17684BF8BA4DB62C699AF /* InstallIDStore.swift */,
+				B5487E9699431CCDBA053924 /* QuotaStore.swift */,
+				C725E0736E8C4255EA728237 /* SubscriptionService.swift */,
+				DA009BE58679219A52BA77B1 /* VideoClipService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		9C2F53712A3AD94A6EC2D883 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				241B4B3823BB207A2E978DC3 /* AppModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D4A345C453AA233D58EBC2DA /* WinTrainStoreKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				2F3F0B4C46EF4ADF7A3E60B1 /* StoreKitLocalTests.swift */,
+				6CFD8CB7A9A44F171B6204F9 /* WinTrainLocal.storekit.json */,
+			);
+			path = WinTrainStoreKitTests;
+			sourceTree = "<group>";
+		};
+		DA778DCDFCC1E19952DAB32B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				461B7E3F7812CCE6D6D1925F /* AnalyzingView.swift */,
+				D70EE386ABEB2BFFB464C671 /* DesignSystem.swift */,
+				46D5BC69F5597FF7F3BE8B1B /* GuideView.swift */,
+				DA1EA94F6EDB9E786C85C1C3 /* HistoryDetailView.swift */,
+				B10736936206E299E464AA54 /* HistoryView.swift */,
+				E41362917EF79CED4E331DC6 /* HomeView.swift */,
+				40F2951CFBF4D98F8DF3DC3B /* PaywallView.swift */,
+				A0DD70C30F15B54A2B037F9A /* ProfileView.swift */,
+				D9343E793D27F3B1F0B8E087 /* ResultView.swift */,
+				3A7165DCCE116CF565D4D632 /* RootTabView.swift */,
+				2F5191D73F3CC85C76A2B008 /* SelectionView.swift */,
+				32FB0588AA2A0CE72206AC58 /* VideoCapturePicker.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7F1B23A1B000509B84D3E8A0 /* WinTrainStoreKitSupport */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 17BC50891CF1FC03A483D53A /* Build configuration list for PBXNativeTarget "WinTrainStoreKitSupport" */;
+			buildPhases = (
+				98F77D74CB1C9C4EABC637F6 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WinTrainStoreKitSupport;
+			packageProductDependencies = (
+			);
+			productName = WinTrainStoreKitSupport;
+			productReference = CD719C2A27DC0DB27E29852F /* WinTrainStoreKitSupport.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A11FF3C0D930A686D704F3DE /* WinTrain */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67A6E85B61139E4D9ED28AC3 /* Build configuration list for PBXNativeTarget "WinTrain" */;
+			buildPhases = (
+				F6EC75AF3C842F3CF6759BC2 /* Sources */,
+				2B2B81FDD21A70E37D6C6C4A /* Resources */,
+				83D65FB4B29D3C319817F80B /* Frameworks */,
+				58D1C9FC065A51CC7694CF4B /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B493D00FA09ADCE66C7686B9 /* PBXTargetDependency */,
+			);
+			name = WinTrain;
+			packageProductDependencies = (
+			);
+			productName = WinTrain;
+			productReference = BEE2E3E51E9C8D30587B8B02 /* WinTrain.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F6B393E7E2DD32BA088666B9 /* WinTrainStoreKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A5C07C8D26ED2C4DF7B96D1A /* Build configuration list for PBXNativeTarget "WinTrainStoreKitTests" */;
+			buildPhases = (
+				1A37163CB5E7D2D889A84FBE /* Sources */,
+				9188C6364F60C2305613C25E /* Resources */,
+				23EDC47E555B33BDF36019F8 /* Frameworks */,
+				9353BDA019FF60CCB0B97CE3 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				487FDE81FBAE1918BF9BD92B /* PBXTargetDependency */,
+			);
+			name = WinTrainStoreKitTests;
+			packageProductDependencies = (
+			);
+			productName = WinTrainStoreKitTests;
+			productReference = 46C0E00BB46C360B1F9C76D3 /* WinTrainStoreKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		226ECA659B0F4E81A6BD7A64 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = E2BDE5BCF7A31D70D0A5E2E7 /* Build configuration list for PBXProject "WinTrain" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 0EE19BF0D036DE888A89D8EB;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 395CFDF82F1F0FDB2A3502CA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A11FF3C0D930A686D704F3DE /* WinTrain */,
+				7F1B23A1B000509B84D3E8A0 /* WinTrainStoreKitSupport */,
+				F6B393E7E2DD32BA088666B9 /* WinTrainStoreKitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2B2B81FDD21A70E37D6C6C4A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F064B2BCE1DFC91D4D5B8196 /* Assets.xcassets in Resources */,
+				BEF02B9874C114EF63FFC3C8 /* WinTrainLocal.storekit in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9188C6364F60C2305613C25E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A79196A4E5A0485775C29882 /* WinTrainLocal.storekit in Resources */,
+				0385B1D501AB0659EFB0A150 /* WinTrainLocal.storekit.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1A37163CB5E7D2D889A84FBE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E16F6D4645C5F0A99B268302 /* StoreKitLocalTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98F77D74CB1C9C4EABC637F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F8D3496DEA14D7A63F7718C /* StoreKitCoordinator.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6EC75AF3C842F3CF6759BC2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				517EFA2A9E6CAC4FBB4F1A2A /* APIClient.swift in Sources */,
+				21427BCCF30A644F53027A45 /* AnalysisFlowViewModel.swift in Sources */,
+				25D0D45650D8F319498AFFCF /* AnalysisService.swift in Sources */,
+				8BE15E478E5912D70B11E310 /* AnalyzingView.swift in Sources */,
+				E0962C1AC2F08BEA9688FD4F /* AppEnvironment.swift in Sources */,
+				DA2C2D20BC227148B3C34151 /* AppModels.swift in Sources */,
+				00E05EC4145CB461177D5427 /* AppRouter.swift in Sources */,
+				3EB4A0DCB84CE3B7DE90A655 /* DesignSystem.swift in Sources */,
+				6FD527B2BE22C202054BADC6 /* GuideView.swift in Sources */,
+				A22BA8DA4A7546DF00DDC098 /* HistoryDetailView.swift in Sources */,
+				A9DF5465C67734DC19772770 /* HistoryStore.swift in Sources */,
+				76A686DBE7AD09A7AD5045AE /* HistoryView.swift in Sources */,
+				5769EE99C4A9E9021AE07A82 /* HomeView.swift in Sources */,
+				C5111E68FE8AF7F6AC17782F /* HomeViewModel.swift in Sources */,
+				F4404FE83071B657AB6BC0DD /* ImportedVideoStore.swift in Sources */,
+				975154C511174189151593D6 /* InstallIDStore.swift in Sources */,
+				CDDF88B025652D0BC6CC5F1A /* PaywallView.swift in Sources */,
+				0C4EAE899B185253E1EE1855 /* ProfileView.swift in Sources */,
+				EBA883A8EA554C87C954F460 /* QuotaStore.swift in Sources */,
+				E4E01D922F95AB0ECD4946B8 /* ResultView.swift in Sources */,
+				E7E3CB60C0F3D676E45F9B91 /* RootTabView.swift in Sources */,
+				BEEEA7C8C6491D6D9AF5A22E /* SelectionView.swift in Sources */,
+				D4ED3DD976E81312C5650159 /* SubscriptionService.swift in Sources */,
+				11B413291B0C867E517B1D45 /* VideoCapturePicker.swift in Sources */,
+				938B36F148F3F9CA423B6F2C /* VideoClipService.swift in Sources */,
+				FC2A51E850AD8AC88C23451C /* WinTrainApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		487FDE81FBAE1918BF9BD92B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7F1B23A1B000509B84D3E8A0 /* WinTrainStoreKitSupport */;
+			targetProxy = B959FE4C9F163092B5906841 /* PBXContainerItemProxy */;
+		};
+		B493D00FA09ADCE66C7686B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7F1B23A1B000509B84D3E8A0 /* WinTrainStoreKitSupport */;
+			targetProxy = 601502235DB801B944FCAD26 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		05570D9160C2977EC6087332 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wintrain.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		5CC68AFF093AA1FA3604679B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wintrain.storekit.support;
+				PRODUCT_NAME = WinTrainStoreKitSupport;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		6D82DE4FFB2A8E5C93159D37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wintrain.storekit.support;
+				PRODUCT_NAME = WinTrainStoreKitSupport;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		A14370B97013C62BF44C1814 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wintrain.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C17D37DF4A9903C7A2F1689F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wintrain.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CF080208E18A1B29A9B85A1F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "稳练";
+				INFOPLIST_KEY_NSCameraUsageDescription = "WinTrain needs camera access to record training videos.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "WinTrain needs microphone access while recording training videos.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "WinTrain needs access to your video library to upload training videos.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_NAME = WinTrain;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DC1AEDAFD24E548892472FBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "稳练";
+				INFOPLIST_KEY_NSCameraUsageDescription = "WinTrain needs camera access to record training videos.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "WinTrain needs microphone access while recording training videos.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "WinTrain needs access to your video library to upload training videos.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_NAME = WinTrain;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FCFF2044DC8C184DBAB37FA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wintrain.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		17BC50891CF1FC03A483D53A /* Build configuration list for PBXNativeTarget "WinTrainStoreKitSupport" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D82DE4FFB2A8E5C93159D37 /* Debug */,
+				5CC68AFF093AA1FA3604679B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		67A6E85B61139E4D9ED28AC3 /* Build configuration list for PBXNativeTarget "WinTrain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF080208E18A1B29A9B85A1F /* Debug */,
+				DC1AEDAFD24E548892472FBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A5C07C8D26ED2C4DF7B96D1A /* Build configuration list for PBXNativeTarget "WinTrainStoreKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A14370B97013C62BF44C1814 /* Debug */,
+				C17D37DF4A9903C7A2F1689F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E2BDE5BCF7A31D70D0A5E2E7 /* Build configuration list for PBXProject "WinTrain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCFF2044DC8C184DBAB37FA2 /* Debug */,
+				05570D9160C2977EC6087332 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 226ECA659B0F4E81A6BD7A64 /* Project object */;
+}

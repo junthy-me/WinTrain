@@ -1,0 +1,279 @@
+{
+  "total_runs": 9,
+  "parseable_runs": 9,
+  "compliant_runs": 9,
+  "compliance_rate": 1,
+  "threshold": 0.9,
+  "passed": true,
+  "runs": [
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash_specialized/s1/spec-s1-run-01.json",
+      "sample_id": "s1",
+      "run_id": "spec-s1-run-01",
+      "output": {
+        "status": "low_confidence",
+        "overall_summary": "视频缺乏杠铃且拍摄角度限制了对关键关节的全面观察，无法准确评估杠铃路径及冠状面关节动态。",
+        "memory_cue": "补充正侧双重视角并加载负重以完整评估动作质量",
+        "low_confidence_reason": "拍摄角度导致无法判断膝盖轨迹（需冠状面视角）及杠铃路径，且无负重器械导致生物力学特征缺失。",
+        "feedbacks": []
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash_specialized/s1/spec-s1-run-02.json",
+      "sample_id": "s1",
+      "run_id": "spec-s1-run-02",
+      "output": {
+        "status": "success",
+        "overall_summary": "徒手深蹲幅度足够，但存在躯干前倾过大和起身时先抬臀的问题。",
+        "memory_cue": "保持躯干挺直，起身时膝髋同步发力。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "躯干前倾过大",
+            "description": "在多次下蹲和站起过程中，躯干明显前倾，偏离中立位。",
+            "how_to_fix": "核心收紧，视线平视前方，保持胸廓展开，使躯干尽量保持直立。",
+            "cue": "挺胸，核心收紧。",
+            "severity": "high",
+            "clip": {
+              "start_ms": 1000,
+              "end_ms": 3000
+            }
+          },
+          {
+            "rank": 2,
+            "title": "起身先抬臀",
+            "description": "在站起阶段，臀部先于膝盖向上移动，导致节奏失衡。",
+            "how_to_fix": "启动时同时伸展髋和膝，保持躯干稳定，避免臀部先起。",
+            "cue": "膝髋同步推起。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 4000,
+              "end_ms": 5500
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash_specialized/s1/spec-s1-run-03.json",
+      "sample_id": "s1",
+      "run_id": "spec-s1-run-03",
+      "output": {
+        "status": "failed",
+        "overall_summary": "视频内容为徒手无负重下蹲，未检测到杠铃负载，不符合杠铃深蹲分析要求。",
+        "memory_cue": "无法生成动作提示",
+        "low_confidence_reason": "",
+        "feedbacks": []
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash_specialized/s2/spec-s2-run-01.json",
+      "sample_id": "s2",
+      "run_id": "spec-s2-run-01",
+      "output": {
+        "status": "success",
+        "overall_summary": "动作整体完成度尚可，但存在启动时耸肩、躯干微后仰及下放速度不均的问题，影响背阔肌主导发力效率。",
+        "memory_cue": "沉肩再拉，躯干稳住不后倒，下放慢一点。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "耸肩代偿",
+            "description": "下拉起始阶段出现耸肩，导致斜方肌过度参与，降低背阔肌募集效率。",
+            "how_to_fix": "下拉前先主动下沉肩胛骨，想象肘部向后下方驱动，保持肩胛稳定。",
+            "cue": "先沉肩，再拉。",
+            "severity": "high",
+            "clip": {
+              "start_ms": 0,
+              "end_ms": 4000
+            }
+          },
+          {
+            "rank": 2,
+            "title": "躯干后倾借力",
+            "description": "第3组和第7组下拉时躯干明显后仰超过15度，利用惯性完成动作，削弱背部刺激。",
+            "how_to_fix": "收紧腹部锁定骨盆，下拉时仅允许极轻微自然后倾，保持视线直视前方。",
+            "cue": "坐直了别躺。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 10000,
+              "end_ms": 14000
+            }
+          },
+          {
+            "rank": 3,
+            "title": "下放阶段失控",
+            "description": "第5次下放时阻力臂速度过快，出现快速回弹现象，减少肌肉持续张力。",
+            "how_to_fix": "下放时用背阔肌主动控制速度，保持3秒离心收缩，避免自由落体。",
+            "cue": "慢放三秒钟。",
+            "severity": "low",
+            "clip": {
+              "start_ms": 15000,
+              "end_ms": 17000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash_specialized/s2/spec-s2-run-02.json",
+      "sample_id": "s2",
+      "run_id": "spec-s2-run-02",
+      "output": {
+        "status": "success",
+        "overall_summary": "动作存在后仰借力与启动顺序问题，影响背阔肌主动发力效率。",
+        "memory_cue": "沉肩夹背，肘部主导下降，躯干保持固定角度。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "后仰借力",
+            "description": "下拉时躯干过度后倾（如1.5-3s），利用惯性而非背部肌群主动收缩。",
+            "how_to_fix": "锁定臀部，维持躯干与大腿夹角约90度，仅允许轻微自然后倾。",
+            "cue": "挺胸坐直。",
+            "severity": "high",
+            "clip": {
+              "start_ms": 1500,
+              "end_ms": 3000
+            }
+          },
+          {
+            "rank": 2,
+            "title": "启动顺序错误",
+            "description": "下拉前先耸肩（如0.5-1s），未先驱动肩胛骨下沉。",
+            "how_to_fix": "预备时主动下沉肩部，想象肘部先向下移动而非手抓杆。",
+            "cue": "沉肩再拉。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 500,
+              "end_ms": 1000
+            }
+          },
+          {
+            "rank": 3,
+            "title": "背部收缩不充分",
+            "description": "下拉至顶部时未充分夹紧背部（如6-7s），呈现手臂主导发力。",
+            "how_to_fix": "集中意识在肩胛骨后收，想象胸椎向两侧扩展。",
+            "cue": "后背夹笔。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 6000,
+              "end_ms": 7000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash_specialized/s2/spec-s2-run-03.json",
+      "sample_id": "s2",
+      "run_id": "spec-s2-run-03",
+      "output": {
+        "status": "success",
+        "overall_summary": "高位下拉动作存在明显启动顺序错误和躯干后仰借力，影响背阔肌发力效率与动作控制。",
+        "memory_cue": "先沉肩再让肘走，躯干别向后躺。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "启动顺序错误",
+            "description": "下拉时先耸肩而非沉肩，导致力量分配至斜方肌和大臂，未优先激活背阔肌。",
+            "how_to_fix": "启动前先感受肩胛骨下沉，再引导肘部向髋关节方向移动，而非用手臂直接下拉。",
+            "cue": "沉肩再往下压。",
+            "severity": "high",
+            "clip": {
+              "start_ms": 0,
+              "end_ms": 3000
+            }
+          },
+          {
+            "rank": 2,
+            "title": "后仰借力",
+            "description": "下拉至底部时躯干明显后倾超过15度，利用惯性完成动作而非背部主导。",
+            "how_to_fix": "收紧腹部核心，臀部固定座椅，仅允许10°以内自然后倾，保持脊柱中立位。",
+            "cue": "肋骨收回来拉。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 4000,
+              "end_ms": 7000
+            }
+          },
+          {
+            "rank": 3,
+            "title": "回程失控",
+            "description": "释放阶段杆子自由下落，离心控制不足导致肌肉张力中断。",
+            "how_to_fix": "下放时主动对抗重力，保持3秒匀速回收，感受背阔肌拉伸感。",
+            "cue": "慢放，别让它弹。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 8000,
+              "end_ms": 11000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash_specialized/s3/spec-s3-run-01.json",
+      "sample_id": "s3",
+      "run_id": "spec-s3-run-01",
+      "output": {
+        "status": "low_confidence",
+        "overall_summary": "视频未能完整记录深蹲最低点及起身阶段，无法评估动作质量的关键要素。",
+        "memory_cue": "请重新拍摄，确保完整展示下蹲最低点及站起的连贯过程。",
+        "low_confidence_reason": "深蹲最低点未完整出现在视频中，无法判断深度和关键错误。",
+        "feedbacks": []
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash_specialized/s3/spec-s3-run-02.json",
+      "sample_id": "s3",
+      "run_id": "spec-s3-run-02",
+      "output": {
+        "status": "success",
+        "overall_summary": "深蹲过程完整，但存在膝盖内扣和起身节奏失衡问题。",
+        "memory_cue": "下蹲时膝盖对准脚尖，起身时保持髋膝同步发力。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "膝盖内扣",
+            "description": "在下降至最低点时（约1-2秒），双膝明显向内侧偏移，未与脚尖方向保持一致。",
+            "how_to_fix": "启动下蹲时主动将膝盖向外打开，下蹲全程保持髋关节稳定外展。",
+            "cue": "膝盖朝外转。",
+            "severity": "high",
+            "clip": {
+              "start_ms": 1000,
+              "end_ms": 2000
+            }
+          },
+          {
+            "rank": 2,
+            "title": "起身先抬臀",
+            "description": "站起阶段（约2-3秒）出现臀部优先上升的代偿模式，导致腰椎承受额外压力。",
+            "how_to_fix": "想象脚跟为支点发力站起，保持上半身与下肢同步上升速度。",
+            "cue": "脚跟蹬地起立。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 2000,
+              "end_ms": 3000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash_specialized/s3/spec-s3-run-03.json",
+      "sample_id": "s3",
+      "run_id": "spec-s3-run-03",
+      "output": {
+        "status": "low_confidence",
+        "overall_summary": "视频未完整记录深蹲最低点及下肢关节运动轨迹，无法可靠评估动作质量。",
+        "memory_cue": "请确保完整拍摄蹲起全过程，使髋膝踝始终可见",
+        "low_confidence_reason": "深蹲最低点未完整出现在视频中，无法判断深度和关键错误",
+        "feedbacks": []
+      }
+    }
+  ]
+}

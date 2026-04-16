@@ -1,0 +1,188 @@
+{
+  "total_runs": 6,
+  "parseable_runs": 6,
+  "compliant_runs": 5,
+  "compliance_rate": 0.8333333333333334,
+  "threshold": 0.9,
+  "passed": false,
+  "runs": [
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash/s1/flash-s1-run-01.json",
+      "sample_id": "s1",
+      "run_id": "flash-s1-run-01",
+      "validation_errors": [
+        "status must be one of success, low_confidence, failed",
+        "overall_summary is required",
+        "memory_cue is required"
+      ],
+      "output": {
+        "status": "",
+        "overall_summary": "",
+        "memory_cue": "",
+        "low_confidence_reason": "",
+        "feedbacks": null
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash/s1/flash-s1-run-02.json",
+      "sample_id": "s1",
+      "run_id": "flash-s1-run-02",
+      "output": {
+        "status": "success",
+        "overall_summary": "整体深蹲动作节奏稳定，下蹲深度基本达到目标范围，核心控制力良好。主要观察到的问题是部分次数中，在起身阶段脚跟出现轻微抬起，导致重心不稳。",
+        "memory_cue": "下蹲和站起全程脚掌紧贴地面。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "足跟稳定性不足",
+            "description": "在下蹲后起身阶段（约第 5 秒处），观察到来右脚脚跟有短暂离地或支撑减少的趋势，导致重心被迫移向前脚掌，降低了下半身力量的输出效率。",
+            "how_to_fix": "在准备站起时，有意识地将脚后跟向下按压，想象地面要抓住你的脚后跟；同时通过臀部发力主导起身过程，而非单纯依靠小腿肌肉推挤。",
+            "cue": "脚后跟压住地面。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 4500,
+              "end_ms": 6200
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash/s1/flash-s1-run-03.json",
+      "sample_id": "s1",
+      "run_id": "flash-s1-run-03",
+      "output": {
+        "status": "success",
+        "overall_summary": "受测者完成了多次标准自重深蹲，动作幅度和节奏控制良好，膝关节与脚尖基本同向。但在后半段动作中出现了头部扭转偏离中立位的现象，可能影响脊柱稳定性。",
+        "memory_cue": "眼睛平视前方，下蹲时脖子像被天花板顶住一样固定不动。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "颈椎偏离中立位",
+            "description": "在第 2 次下蹲过程中（约 10.2 秒处），受测者在保持下蹲姿势时，头部明显转向侧面看向镜头，这破坏了胸椎和腰椎的稳定轴线。",
+            "how_to_fix": "在下蹲开始前设定视线落点于地面前方，全程锁定视线，通过颈部肌肉收缩固定头部，减少头部晃动。",
+            "cue": "锁定视线。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 9200,
+              "end_ms": 10500
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash/s2/flash-s2-run-01.json",
+      "sample_id": "s2",
+      "run_id": "flash-s2-run-01",
+      "output": {
+        "status": "success",
+        "overall_summary": "视频中用户进行了多组高位下拉动作，动作连贯性较好，但在第一、二组中均出现明显的躯干过度后仰借力和颈部后伸现象，导致核心稳定性不足且颈椎承受较大剪切力。",
+        "memory_cue": "拉之前先稳住屁股和后背，下巴找锁骨，不要抬头硬拉。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "躯干过度后仰借力",
+            "description": "在第一次下拉至最低点时（约0-4秒），身体大幅度向后仰以借助惯性和重力移动负荷，未通过背部肌群主导发力，这降低了动作对目标肌肉的刺激效率。",
+            "how_to_fix": "坐下时将臀部紧紧抵住座椅，胸部挺起，双手握住把杆前先将肩胛骨下沉再拉，全程控制身体几乎不晃动或仅有极小幅度（小于15度）的自然后倾。",
+            "cue": "锁住核心。",
+            "severity": "high",
+            "clip": {
+              "start_ms": 0,
+              "end_ms": 5000
+            }
+          },
+          {
+            "rank": 2,
+            "title": "颈椎过度伸展",
+            "description": "在手柄下放或触底瞬间（如第3秒和第7秒附近），头部有明显的向后仰动作，视线直视天花板，使颈椎处于非中立位，长期如此易损伤颈部关节。",
+            "how_to_fix": "想象头顶有一根线向上提拉，保持下颌微收，双眼平视前方或注视高处墙壁上的一个固定点，不要让脖子随杠铃上下而过度伸缩。",
+            "cue": "眼睛看前方。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 3000,
+              "end_ms": 4000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash/s2/flash-s2-run-02.json",
+      "sample_id": "s2",
+      "run_id": "flash-s2-run-02",
+      "output": {
+        "status": "success",
+        "overall_summary": "视频显示用户正在进行高位下拉训练。动作模式基本正确，但在动作底端存在明显的躯干过度后仰和借力的情况，这会降低背阔肌的刺激并增加腰部压力。",
+        "memory_cue": "高位下拉锁定核心，避免过度后仰。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "躯干过度后仰与借力",
+            "description": "在每次下拉动作中，用户上半身显著向后倾斜超过30度，利用惯性将杠铃拉起，这表明重量可能过大或背阔肌控制力不足。",
+            "how_to_fix": "降低重量，固定骨盆和胸腔。仅在动作起始前保持约15-30度的自然后倾，在整个下拉过程中保持躯干稳定不动，避免通过前后摆动来完成一次重复。",
+            "cue": "像椅子一样坐稳。",
+            "severity": "high",
+            "clip": {
+              "start_ms": 0,
+              "end_ms": 2000
+            }
+          },
+          {
+            "rank": 2,
+            "title": "头部跟随移动",
+            "description": "在上拉过程中，头部随着躯干一起大幅度后仰，且视线方向不固定，增加了颈椎的压力。",
+            "how_to_fix": "保持下巴微收，眼睛注视前方略偏上的位置。即使在下放重物的过程中，也要尽量保持头颈中立，不要被动跟随上身后撤。",
+            "cue": "盯着正前方的墙。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 4000,
+              "end_ms": 6000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "poc/llm-spike/testdata/llm_responses_flash/s2/flash-s2-run-03.json",
+      "sample_id": "s2",
+      "run_id": "flash-s2-run-03",
+      "output": {
+        "status": "success",
+        "overall_summary": "视频展示了高位下拉动作练习。受试者在多次重复中均存在明显的前倾头部姿态（颈部过度前伸）以及拉起时的耸肩代偿现象，影响背部肌群的正确发力并增加颈椎压力。",
+        "memory_cue": "拉下时下巴回收固定肩膀下沉。",
+        "low_confidence_reason": "",
+        "feedbacks": [
+          {
+            "rank": 1,
+            "title": "头部前伸",
+            "description": "在下拉过程中，头部明显随杠铃或绳索向前移动，超出躯干垂直面，导致颈椎承受额外压缩力且无法有效拉伸背阔肌。",
+            "how_to_fix": "保持下颌轻微内收，将目光固定在前方地面一点上，想象后脑勺向后去够天花板，而非身体前探去够器械。",
+            "cue": "头不动，眼盯地。",
+            "severity": "high",
+            "clip": {
+              "start_ms": 0,
+              "end_ms": 1500
+            }
+          },
+          {
+            "rank": 2,
+            "title": "耸肩代偿",
+            "description": "在动作底部收缩阶段，斜方肌上束明显参与工作（耸肩），而不是通过沉肩来主导背部收缩。",
+            "how_to_fix": "启动动作前先做一个‘沉肩’准备，全程保持肩膀远离耳朵的位置，避免用手臂力量硬拽。",
+            "cue": "肩膀向下沉。",
+            "severity": "medium",
+            "clip": {
+              "start_ms": 2500,
+              "end_ms": 4500
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "records": [
+    {
+      "sample_id": "s1",
+      "run_id": "flash-s1-run-01",
+      "clip_found": false
+    },
+    {
+      "sample_id": "s1",
+      "run_id": "flash-s1-run-02",
+      "clip_found": true,
+      "start_error_ms": 4500,
+      "end_error_ms": 3200
+    },
+    {
+      "sample_id": "s1",
+      "run_id": "flash-s1-run-03",
+      "clip_found": true,
+      "start_error_ms": 9200,
+      "end_error_ms": 7500
+    },
+    {
+      "sample_id": "s2",
+      "run_id": "flash-s2-run-01",
+      "clip_found": true,
+      "end_error_ms": 3000
+    },
+    {
+      "sample_id": "s2",
+      "run_id": "flash-s2-run-02",
+      "clip_found": true,
+      "within_1s": true
+    },
+    {
+      "sample_id": "s2",
+      "run_id": "flash-s2-run-03",
+      "clip_found": true,
+      "end_error_ms": 500,
+      "within_1s": true
+    }
+  ],
+  "evaluated_runs": 6,
+  "with_clip_runs": 5,
+  "missing_clip_runs": 1,
+  "missing_clip_rate": 0.16666666666666666,
+  "within_1s_count": 2,
+  "within_1s_rate": 0.3333333333333333,
+  "threshold_ms": 1000,
+  "passed": false
+}

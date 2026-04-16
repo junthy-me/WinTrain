@@ -60,3 +60,11 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+
+# llm-spike local artifacts
+backend/poc/llm-spike/testdata/*
+!backend/poc/llm-spike/testdata/*.md
+!backend/poc/llm-spike/testdata/*.json
+!backend/poc/llm-spike/testdata/llm_responses/
+backend/poc/llm-spike/testdata/llm_responses/*
+!backend/poc/llm-spike/testdata/llm_responses/.gitkeep

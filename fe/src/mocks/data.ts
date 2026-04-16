@@ -6,8 +6,7 @@ export const EXERCISES: Exercise[] = [
     name: "杠铃深蹲",
     targets: "股四头肌、臀大肌",
     view: "侧前方 30°～45°",
-    image:
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=1469&auto=format&fit=crop",
+    image: "/squat.jpg",
     imagePrompt: "A photorealistic fitness instructional image of a muscular person performing a heavy barbell back squat in a modern gym. The person is clearly carrying a loaded barbell securely across their upper back and shoulders, gripping the bar with both hands. The camera angle is positioned at a 45-degree angle from the front-side (anterolateral view), and the camera height is exactly at the person's hip level. The entire body is visible in the frame, clearly showing the barbell, torso, hips, knees, ankles, and feet. Bright, clear lighting, highly detailed."
   },
   {
@@ -15,8 +14,7 @@ export const EXERCISES: Exercise[] = [
     name: "坐姿高位下拉",
     targets: "背阔肌、大圆肌",
     view: "侧后方 30°～45°",
-    image:
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=1470&auto=format&fit=crop",
+    image: "/lat-pulldown.jpg",
     imagePrompt: "A photorealistic fitness instructional image of a person performing a seated cable lat pulldown in a modern gym. The camera angle is positioned at a 45-degree angle from the back-side (posterolateral view), and the camera height is at the person's head/upper body level, looking slightly down at the back. The person is actively pulling the wide bar down towards their upper chest. The frame clearly shows the back of the head, shoulders, upper back (latissimus dorsi), elbows, the pulldown bar, and the torso. Bright, clear lighting, highly detailed."
   },
 ];
@@ -94,7 +92,7 @@ export const RECENT_HISTORY: HistoryItem = {
   date: "10月24日 · 18:30",
   status: "需改进",
   summary: "重心不稳：杠铃上下时没有尽量走直线",
-  thumbnail: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=1469&auto=format&fit=crop",
+  thumbnail: "/squat.jpg",
   score: 85
 };
 
@@ -142,4 +140,3 @@ export const HISTORY_LIST: HistoryItem[] = [
     reps: "5×5",
   },
 ];
-

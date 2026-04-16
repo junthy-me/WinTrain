@@ -25,7 +25,7 @@ export function PaywallScreen() {
             className="bg-cover bg-center flex flex-col justify-end overflow-hidden rounded-2xl min-h-[220px] relative border border-white/10 shadow-2xl"
             style={{
               backgroundImage:
-                'linear-gradient(180deg, rgba(10, 18, 20, 0) 0%, rgba(10, 18, 20, 0.9) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuA83GrZJyPiJ8R3csXeOWp4gEy4YzcItPljpGJIT4p5kqz_-XKriY3CmUuGehem4EGMpl7anCSbzqmaOVxXQSqDzgShFJelLP9hF8w7Yl_ginvjbDYxNTzxhQCVmcz7Y3jv5e6AJkIyWOdK8iHbkczzYTdRJStRjA0lIa3L8_iUmkt1dsSW31Wi64c1zUux9b9OtOEqZq3TQxQrkkE0tVTok60UZIdNw3LyE9mQYk9FMZSwynA7LeJNgKP5wNev29r6uhdi2rCTMXc")',
+                'linear-gradient(180deg, rgba(10, 18, 20, 0) 0%, rgba(10, 18, 20, 0.9) 100%), url("/paywall-hero.jpg")',
             }}
           >
             <div className="flex p-6 flex-col">

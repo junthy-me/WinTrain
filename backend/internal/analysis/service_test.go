@@ -2,6 +2,7 @@ package analysis
 
 import (
 	"encoding/json"
+	"strings"
 	"testing"
 
 	"wintrain/backend/internal/domain"
@@ -14,8 +15,8 @@ func TestNormalizeProviderResponse_NilInput(t *testing.T) {
 	if result.Status != "failed" {
 		t.Errorf("expected status=failed, got %q", result.Status)
 	}
-	if result.LowConfidenceReason == nil {
-		t.Error("expected LowConfidenceReason to be set for nil input")
+	if result.LowConfidenceReason != nil {
+		t.Error("expected LowConfidenceReason to be nil for failed nil input")
 	}
 }
 
@@ -47,7 +48,7 @@ func TestNormalizeProviderResponse_SuccessWithFeedbacks(t *testing.T) {
 	}
 }
 
-func TestNormalizeProviderResponse_SuccessWithNoFeedbacks_BecomesLowConfidence(t *testing.T) {
+func TestNormalizeProviderResponse_SuccessWithNoFeedbacks_RemainsSuccess(t *testing.T) {
 	input := &ProviderResponse{
 		Status:         "success",
 		OverallSummary: "分析完成",
@@ -55,24 +56,53 @@ func TestNormalizeProviderResponse_SuccessWithNoFeedbacks_BecomesLowConfidence(t
 	}
 	result := normalizeProviderResponse(input)
 
-	if result.Status != "low_confidence" {
-		t.Errorf("expected low_confidence for success+no-feedbacks, got %q", result.Status)
+	if result.Status != "success" {
+		t.Errorf("expected success for success+no-feedbacks, got %q", result.Status)
 	}
-	if result.LowConfidenceReason == nil {
-		t.Error("expected LowConfidenceReason to be set")
+	if result.LowConfidenceReason != nil {
+		t.Error("expected LowConfidenceReason to be nil")
 	}
 }
 
-func TestNormalizeProviderResponse_UnknownStatusBecomesLowConfidence(t *testing.T) {
+func TestNormalizeProviderResponse_UnknownStatusWithReasonBecomesLowConfidence(t *testing.T) {
 	input := &ProviderResponse{
-		Status:         "unknown_status",
-		OverallSummary: "...",
-		Feedbacks:      []domain.Feedback{{Rank: 1, Title: "test", Severity: "minor"}},
+		Status:              "unknown_status",
+		OverallSummary:      "...",
+		LowConfidenceReason: stringPointer("角度不足"),
+		Feedbacks:           []domain.Feedback{{Rank: 1, Title: "test", Severity: "minor"}},
 	}
 	result := normalizeProviderResponse(input)
 
 	if result.Status != "low_confidence" {
 		t.Errorf("expected low_confidence for unknown status, got %q", result.Status)
+	}
+}
+
+func TestNormalizeProviderResponse_UnknownStatusWithSummaryAndFeedbacksBecomesSuccess(t *testing.T) {
+	input := &ProviderResponse{
+		Status:         "unknown_status",
+		OverallSummary: "整体良好",
+		Feedbacks:      []domain.Feedback{},
+	}
+	result := normalizeProviderResponse(input)
+
+	if result.Status != "success" {
+		t.Errorf("expected success for unknown status with complete body, got %q", result.Status)
+	}
+}
+
+func TestNormalizeProviderResponse_UnknownStatusWithoutSignalsBecomesFailed(t *testing.T) {
+	input := &ProviderResponse{
+		Status:    "unknown_status",
+		Feedbacks: []domain.Feedback{},
+	}
+	result := normalizeProviderResponse(input)
+
+	if result.Status != "failed" {
+		t.Errorf("expected failed for unknown status without usable signals, got %q", result.Status)
+	}
+	if result.OverallSummary == "" {
+		t.Error("expected failed summary to be injected")
 	}
 }
 
@@ -85,6 +115,41 @@ func TestNormalizeProviderResponse_LowConfidenceWithoutReasonGetsDefault(t *test
 
 	if result.LowConfidenceReason == nil {
 		t.Error("expected default LowConfidenceReason to be injected")
+	}
+}
+
+func TestNormalizeProviderResponse_SuccessClearsLowConfidenceReason(t *testing.T) {
+	input := &ProviderResponse{
+		Status:              "success",
+		OverallSummary:      "ok",
+		LowConfidenceReason: stringPointer("  should be cleared  "),
+		Feedbacks:           []domain.Feedback{{Rank: 1, Title: "test", Severity: "minor"}},
+	}
+	result := normalizeProviderResponse(input)
+
+	if result.LowConfidenceReason != nil {
+		t.Errorf("expected LowConfidenceReason to be nil for success, got %v", result.LowConfidenceReason)
+	}
+}
+
+func TestNormalizeProviderResponse_FailedClearsFeedbacksAndKeepsSliceNonNil(t *testing.T) {
+	input := &ProviderResponse{
+		Status:         "failed",
+		OverallSummary: "bad input",
+		Feedbacks: []domain.Feedback{
+			{Rank: 1, Title: "should be removed", Severity: "major"},
+		},
+	}
+	result := normalizeProviderResponse(input)
+
+	if len(result.Feedbacks) != 0 {
+		t.Fatalf("expected failed response to have no feedbacks, got %d", len(result.Feedbacks))
+	}
+	if result.Feedbacks == nil {
+		t.Fatal("expected feedbacks slice to be non-nil")
+	}
+	if result.LowConfidenceReason != nil {
+		t.Errorf("expected LowConfidenceReason to be nil for failed, got %v", result.LowConfidenceReason)
 	}
 }
 
@@ -127,6 +192,31 @@ func TestNormalizeSeverity(t *testing.T) {
 		if got != tc.expected {
 			t.Errorf("normalizeSeverity(%q) = %q, want %q", tc.input, got, tc.expected)
 		}
+	}
+}
+
+func TestPromptForExercise_SupportedExerciseIDs(t *testing.T) {
+	tests := []struct {
+		exerciseID string
+		wantText   string
+	}{
+		{exerciseID: "squat", wantText: "深蹲模式"},
+		{exerciseID: "lat-pulldown", wantText: "高位下拉"},
+		{exerciseID: "bench-press", wantText: "杠铃卧推"},
+		{exerciseID: "barbell-row", wantText: "杠铃划船"},
+		{exerciseID: "deadlift", wantText: "杠铃硬拉"},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.exerciseID, func(t *testing.T) {
+			prompt := promptForExercise(tc.exerciseID)
+			if prompt == "" {
+				t.Fatal("expected non-empty prompt")
+			}
+			if !strings.Contains(prompt, tc.wantText) {
+				t.Fatalf("expected prompt to contain %q", tc.wantText)
+			}
+		})
 	}
 }
 

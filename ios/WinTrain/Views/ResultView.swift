@@ -4,6 +4,19 @@ import SwiftUI
 import UIKit
 
 struct ResultView: View {
+    private enum ResultDisplayState {
+        case success
+        case lowConfidence
+        case failed
+        case exception
+    }
+
+    private enum SuccessPresentationKind {
+        case excellent
+        case good
+        case needsImprovement
+    }
+
     @EnvironmentObject private var router: AppRouter
     let context: ResultScreenContext
     @State private var showClipPlayer = false
@@ -16,40 +29,78 @@ struct ResultView: View {
         context.result
     }
 
-    private var isFailure: Bool {
-        result == nil
+    private var displayState: ResultDisplayState {
+        guard let result else { return .exception }
+        switch result.status {
+        case "low_confidence":
+            return .lowConfidence
+        case "failed":
+            return .failed
+        default:
+            return .success
+        }
+    }
+
+    private var showsFailureBody: Bool {
+        displayState != .success
     }
 
     private var primaryFeedback: FeedbackItem? {
         result?.feedbacks.first
     }
 
-    private var isExcellent: Bool {
-        guard let result else { return false }
-        return result.status != "low_confidence" && result.feedbacks.allSatisfy { $0.severity == "info" }
+    private var successPresentationKind: SuccessPresentationKind {
+        guard let result, result.status == "success" else { return .needsImprovement }
+        if result.feedbacks.isEmpty {
+            return .excellent
+        }
+        if result.feedbacks.allSatisfy({ $0.severity == "info" }) {
+            return .good
+        }
+        return .needsImprovement
     }
 
     private var feedbackTitle: String {
-        guard let result else { return "分析未成功" }
-        if result.status == "low_confidence" {
+        switch displayState {
+        case .exception, .failed:
+            return "分析失败"
+        case .lowConfidence:
             return "建议重拍"
+        case .success:
+            break
         }
-        if isExcellent {
+
+        switch successPresentationKind {
+        case .excellent:
             return "动作优秀"
+        case .good:
+            return "动作良好"
+        case .needsImprovement:
+            break
         }
-        return primaryFeedback?.title ?? "需改进"
+
+        return primaryFeedback?.title ?? "动作可改进"
     }
 
     private var feedbackDescription: String {
-        guard let result else {
-            return normalizedFailureDescription(context.failureReason)
-        }
-        if result.status == "low_confidence" {
-            let reason = result.lowConfidenceReason?.trimmingCharacters(in: .whitespacesAndNewlines)
+        switch displayState {
+        case .lowConfidence:
+            let reason = result?.lowConfidenceReason?.trimmingCharacters(in: .whitespacesAndNewlines)
             if let reason, reason.isEmpty == false {
                 return reason
             }
-            return result.overallSummary
+            return "当前视频不满足拍摄要求，请参考下方拍摄要点重拍"
+        case .failed:
+            let summary = result?.overallSummary.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            return summary.isEmpty ? "本次分析未成功生成结构化结果。" : summary
+        case .exception:
+            return normalizedFailureDescription(context.failureReason)
+        case .success:
+            break
+        }
+
+        guard let result else {
+            return normalizedFailureDescription(context.failureReason)
         }
         return result.overallSummary
     }
@@ -60,6 +111,9 @@ struct ResultView: View {
     }
 
     private var successIntroDescription: String? {
+        if successPresentationKind != .needsImprovement {
+            return trimmedFeedbackDescription
+        }
         if let primaryProblemDescription {
             return primaryProblemDescription
         }
@@ -82,11 +136,13 @@ struct ResultView: View {
     }
 
     private var hasGuidanceContent: Bool {
-        guidanceCue != nil || guidanceHowToFix != nil
+        guard successPresentationKind == .needsImprovement else { return false }
+        return guidanceCue != nil || guidanceHowToFix != nil
     }
 
     private var hasPrimaryProblemContent: Bool {
-        primaryFeedback != nil && (primaryProblemDescription != nil || hasGuidanceContent)
+        guard successPresentationKind == .needsImprovement else { return false }
+        return primaryFeedback != nil && (primaryProblemDescription != nil || hasGuidanceContent)
     }
 
     private var localClipURL: URL? {
@@ -101,6 +157,58 @@ struct ResultView: View {
         result?.status == "success" && hasPrimaryProblemContent && localClipURL != nil
     }
 
+    private var successBadgeTitle: String {
+        switch successPresentationKind {
+        case .excellent:
+            return "优秀"
+        case .good:
+            return "良好"
+        case .needsImprovement:
+            return "需改进"
+        }
+    }
+
+    private var successAccentColor: Color {
+        switch successPresentationKind {
+        case .excellent:
+            return AppTheme.success
+        case .good:
+            return AppTheme.primary
+        case .needsImprovement:
+            return AppTheme.warning
+        }
+    }
+
+    private var shouldShowCaptureGuidanceCard: Bool {
+        displayState == .lowConfidence
+    }
+
+    private var failureAccentColor: Color {
+        switch displayState {
+        case .lowConfidence:
+            return AppTheme.warning
+        case .failed, .exception:
+            return AppTheme.textSecondary
+        case .success:
+            return AppTheme.warning
+        }
+    }
+
+    private var failureIconName: String {
+        switch displayState {
+        case .lowConfidence:
+            return "camera.viewfinder"
+        case .failed, .exception:
+            return "xmark.octagon.fill"
+        case .success:
+            return "exclamationmark.triangle.fill"
+        }
+    }
+
+    private var failureHeadline: String {
+        displayState == .lowConfidence ? "建议重拍" : "分析未成功"
+    }
+
     var body: some View {
         VStack(spacing: 0) {
             AppPageHeader(
@@ -111,7 +219,7 @@ struct ResultView: View {
             )
 
             ScrollView(showsIndicators: false) {
-                if isFailure {
+                if showsFailureBody {
                     failureBody
                 } else {
                     successBody
@@ -131,15 +239,15 @@ struct ResultView: View {
         VStack(spacing: 24) {
             VStack(spacing: 16) {
                 Circle()
-                    .fill(AppTheme.danger.opacity(0.1))
+                    .fill(failureAccentColor.opacity(0.12))
                     .frame(width: 64, height: 64)
                     .overlay {
-                        Image(systemName: "exclamationmark.triangle.fill")
+                        Image(systemName: failureIconName)
                             .font(.system(size: 28, weight: .bold))
-                            .foregroundStyle(AppTheme.danger)
+                            .foregroundStyle(failureAccentColor)
                     }
 
-                Text("分析未成功")
+                Text(failureHeadline)
                     .font(.system(size: 30, weight: .bold))
                     .foregroundStyle(.white)
 
@@ -153,33 +261,35 @@ struct ResultView: View {
 
                     Text("本次未成功生成结果，不计入免费分析次数")
                         .font(.system(size: 14, weight: .medium))
-                        .foregroundStyle(AppTheme.danger)
+                        .foregroundStyle(failureAccentColor)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
-                        .background(AppTheme.danger.opacity(0.05))
+                        .background(failureAccentColor.opacity(0.08))
                         .overlay(
                             RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                .stroke(AppTheme.danger.opacity(0.12), lineWidth: 1)
+                                .stroke(failureAccentColor.opacity(0.16), lineWidth: 1)
                         )
                         .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                 }
             }
 
-            AppCard(cornerRadius: 12) {
-                HStack(alignment: .top, spacing: 12) {
-                    Image(systemName: "lightbulb.fill")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundStyle(AppTheme.primary)
-
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("拍摄合格性提示")
-                            .font(.system(size: 15, weight: .bold))
+            if shouldShowCaptureGuidanceCard {
+                AppCard(cornerRadius: 12) {
+                    HStack(alignment: .top, spacing: 12) {
+                        Image(systemName: "lightbulb.fill")
+                            .font(.system(size: 20, weight: .semibold))
                             .foregroundStyle(AppTheme.primary)
 
-                        VStack(alignment: .leading, spacing: 8) {
-                            AppBulletText("请把脚和杠铃都拍全")
-                            AppBulletText("请固定机位，不要手持拍摄")
-                            AppBulletText("请靠近一些，确保能看到身体主要关节")
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("拍摄合格性提示")
+                                .font(.system(size: 15, weight: .bold))
+                                .foregroundStyle(AppTheme.primary)
+
+                            VStack(alignment: .leading, spacing: 8) {
+                                ForEach(exercise.guideRequirements, id: \.self) { requirement in
+                                    AppBulletText(requirement)
+                                }
+                            }
                         }
                     }
                 }
@@ -222,7 +332,7 @@ struct ResultView: View {
         case "":
             return fallback
         case "服务暂时不可用。":
-            return "视频数据不符合拍摄要求"
+            return "服务暂时不可用，请稍后再试"
         case "服务返回了无法识别的数据。":
             return "服务内部错误"
         case "请先选择一个有效的视频文件。":
@@ -235,14 +345,14 @@ struct ResultView: View {
     private var successBody: some View {
         VStack(spacing: 0) {
             VStack(spacing: 16) {
-                Text(isExcellent ? "优秀" : "需改进")
+                Text(successBadgeTitle)
                     .font(.system(size: 14, weight: .bold))
-                    .foregroundStyle(isExcellent ? AppTheme.success : AppTheme.warning)
+                    .foregroundStyle(successAccentColor)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 6)
-                    .background((isExcellent ? AppTheme.success : AppTheme.warning).opacity(0.1))
+                    .background(successAccentColor.opacity(0.1))
                     .overlay(
-                        Capsule().stroke((isExcellent ? AppTheme.success : AppTheme.warning).opacity(0.2), lineWidth: 1)
+                        Capsule().stroke(successAccentColor.opacity(0.2), lineWidth: 1)
                     )
                     .clipShape(Capsule())
 
@@ -531,7 +641,7 @@ private struct ClipPlayerSheet: View {
             }
         }
         .task {
-            configurePlayerIfNeeded()
+            await configurePlayerIfNeeded()
         }
         .onDisappear {
             tearDownPlayer()
@@ -554,14 +664,14 @@ private struct ClipPlayerSheet: View {
         return min(max(currentTime / duration, 0), 1)
     }
 
-    private func configurePlayerIfNeeded() {
+    private func configurePlayerIfNeeded() async {
         guard player == nil else { return }
 
         let item = AVPlayerItem(url: videoURL)
         let player = AVPlayer(playerItem: item)
         self.player = player
 
-        duration = max(item.asset.duration.seconds.isFinite ? item.asset.duration.seconds : 0, 0)
+        duration = await assetDurationSeconds(for: item.asset)
         addTimeObserver(to: player)
         addEndObserver(for: item)
     }
@@ -573,13 +683,15 @@ private struct ClipPlayerSheet: View {
             forInterval: CMTime(seconds: 0.2, preferredTimescale: 600),
             queue: .main
         ) { time in
-            guard isScrubbing == false else { return }
-            currentTime = max(time.seconds.isFinite ? time.seconds : 0, 0)
-            if didReachEnd && currentTime < duration {
-                didReachEnd = false
-            }
-            if let itemDuration = player.currentItem?.duration.seconds, itemDuration.isFinite, itemDuration > 0 {
-                duration = itemDuration
+            Task { @MainActor in
+                guard isScrubbing == false else { return }
+                currentTime = max(time.seconds.isFinite ? time.seconds : 0, 0)
+                if didReachEnd && currentTime < duration {
+                    didReachEnd = false
+                }
+                if let itemDuration = player.currentItem?.duration.seconds, itemDuration.isFinite, itemDuration > 0 {
+                    duration = itemDuration
+                }
             }
         }
     }
@@ -597,10 +709,12 @@ private struct ClipPlayerSheet: View {
             object: item,
             queue: .main
         ) { _ in
-            isPlaying = false
-            didReachEnd = true
-            if duration > 0 {
-                currentTime = duration
+            Task { @MainActor in
+                isPlaying = false
+                didReachEnd = true
+                if duration > 0 {
+                    currentTime = duration
+                }
             }
         }
     }
@@ -669,6 +783,16 @@ private struct ClipPlayerSheet: View {
         removeEndObserver()
         isPlaying = false
         didReachEnd = false
+    }
+
+    private func assetDurationSeconds(for asset: AVAsset) async -> Double {
+        do {
+            let loadedDuration = try await asset.load(.duration)
+            let seconds = loadedDuration.seconds
+            return max(seconds.isFinite ? seconds : 0, 0)
+        } catch {
+            return 0
+        }
     }
 
     private func transportButton(systemImage: String, action: @escaping () -> Void) -> some View {

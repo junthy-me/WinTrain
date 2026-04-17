@@ -37,13 +37,7 @@ struct APIClient {
 
         let (data, response) = try await session.data(for: request)
         logResponse(for: request, response: response, data: data)
-        try validate(response: response, data: data)
-        do {
-            return try JSONDecoder().decode(AnalysisResult.self, from: data)
-        } catch {
-            logDecodeFailure(for: request, data: data, error: error)
-            throw error
-        }
+        return try decodeAnalysisResponse(for: request, response: response, data: data)
     }
 
     func activateSubscription(installID: String, productID: String, originalTransactionID: String, signedTransactionInfo: String) async throws -> SubscriptionResult {
@@ -104,6 +98,31 @@ struct APIClient {
         body.append(videoData)
         body.appendString("\r\n--\(boundary)--\r\n")
         return body
+    }
+
+    private func decodeAnalysisResponse(for request: URLRequest, response: URLResponse, data: Data) throws -> AnalysisResult {
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw AppError.invalidResponse
+        }
+
+        do {
+            let result = try JSONDecoder().decode(AnalysisResult.self, from: data)
+            switch httpResponse.statusCode {
+            case 200 ..< 300:
+                return result
+            case 422 where result.status == "low_confidence":
+                return result
+            case 502 where result.status == "failed":
+                return result
+            default:
+                break
+            }
+        } catch {
+            logDecodeFailure(for: request, data: data, error: error)
+        }
+
+        try validate(response: response, data: data)
+        throw AppError.invalidResponse
     }
 
     private func validate(response: URLResponse, data: Data) throws {

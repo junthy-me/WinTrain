@@ -16,23 +16,11 @@ struct GuideView: View {
     @State private var showSourceDialog = false
 
     private var cameraHeight: String {
-        exercise.id == "squat" ? "髋部附近高度" : "上半身到头部附近高度"
+        exercise.guideCameraHeight
     }
 
     private var requirements: [String] {
-        if exercise.id == "squat" {
-            return [
-                "能看到杠铃、躯干、髋、膝、踝、脚",
-                "能观察杠铃路径与身体稳定性",
-                "能看到完整下蹲和站起过程",
-            ]
-        }
-
-        return [
-            "能看到头、肩、肘、杆、躯干",
-            "能观察到身体是否后仰",
-            "能看到下拉到底与放回过程",
-        ]
+        exercise.guideRequirements
     }
 
     var body: some View {

@@ -3,12 +3,21 @@ import SwiftUI
 struct HistoryView: View {
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var historyStore: HistoryStore
+    @State private var selectedBodyPartID = "all"
     @State private var selectedExerciseID = "all"
     @State private var selectedDate: Date?
     @State private var showCalendar = false
 
-    private var tabs: [Exercise] {
-        Exercise.supported
+    private var selectedBodyPart: ExerciseBodyPart? {
+        ExerciseBodyPart(rawValue: selectedBodyPartID)
+    }
+
+    private var bodyPartTabs: [ExerciseBodyPart] {
+        ExerciseBodyPart.allCases
+    }
+
+    private var exerciseTabs: [Exercise] {
+        Exercise.supported(bodyPart: selectedBodyPart)
     }
 
     private var baseRecords: [HistoryRecord] {
@@ -17,9 +26,10 @@ struct HistoryView: View {
 
     private var filteredRecords: [HistoryRecord] {
         baseRecords.filter { record in
+            let bodyPartMatches = selectedBodyPart == nil || Exercise.find(record.exerciseID).bodyPart == selectedBodyPart
             let exerciseMatches = selectedExerciseID == "all" || record.exerciseID == selectedExerciseID
             let dateMatches = selectedDate == nil || Calendar.current.isDate(record.createdAt, inSameDayAs: selectedDate!)
-            return exerciseMatches && dateMatches
+            return bodyPartMatches && exerciseMatches && dateMatches
         }
     }
 
@@ -27,7 +37,10 @@ struct HistoryView: View {
         ZStack {
             VStack(spacing: 0) {
                 header
-                filterTabs
+                bodyPartFilterTabs
+                if selectedBodyPart != nil {
+                    filterTabs
+                }
 
                 if let selectedDate {
                     HStack {
@@ -86,6 +99,15 @@ struct HistoryView: View {
                 )
             }
         }
+        .onChange(of: selectedBodyPartID) { _ in
+            if selectedExerciseID == "all" {
+                return
+            }
+            let availableExerciseIDs = Set(exerciseTabs.map(\.id))
+            if availableExerciseIDs.contains(selectedExerciseID) == false {
+                selectedExerciseID = "all"
+            }
+        }
     }
 
     private var header: some View {
@@ -120,11 +142,30 @@ struct HistoryView: View {
         }
     }
 
+    private var bodyPartFilterTabs: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 12) {
+                capsuleFilterButton(title: "全部", value: "all", selection: $selectedBodyPartID)
+                ForEach(bodyPartTabs) { bodyPart in
+                    capsuleFilterButton(title: bodyPart.title, value: bodyPart.rawValue, selection: $selectedBodyPartID)
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+        }
+        .background(AppTheme.background)
+        .overlay(alignment: .bottom) {
+            Rectangle()
+                .fill(AppTheme.border)
+                .frame(height: 1)
+        }
+    }
+
     private var filterTabs: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 24) {
-                filterButton(title: "全部", value: "all")
-                ForEach(tabs) { exercise in
+                filterButton(title: "全部动作", value: "all")
+                ForEach(exerciseTabs) { exercise in
                     filterButton(title: exercise.name, value: exercise.id)
                 }
             }
@@ -153,6 +194,27 @@ struct HistoryView: View {
                     .frame(height: 2)
             }
             .padding(.top, 12)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private func capsuleFilterButton(title: String, value: String, selection: Binding<String>) -> some View {
+        let isSelected = selection.wrappedValue == value
+
+        return Button {
+            selection.wrappedValue = value
+        } label: {
+            Text(title)
+                .font(.system(size: 13, weight: isSelected ? .bold : .medium))
+                .foregroundStyle(isSelected ? .white : AppTheme.textSecondary)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 10)
+                .background(isSelected ? AppTheme.primary : AppTheme.cardMuted)
+                .overlay(
+                    Capsule()
+                        .stroke(isSelected ? AppTheme.primary : AppTheme.border, lineWidth: 1)
+                )
+                .clipShape(Capsule())
         }
         .buttonStyle(.plain)
     }
@@ -279,6 +341,9 @@ struct HistoryView: View {
         if title == "优秀" {
             return "checkmark.circle.fill"
         }
+        if title == "良好" {
+            return "checkmark.seal.fill"
+        }
         if title == "需改进" {
             return "exclamationmark.triangle.fill"
         }
@@ -289,6 +354,9 @@ struct HistoryView: View {
         let title = resultStatusTitle(for: result)
         if title == "优秀" {
             return AppTheme.success
+        }
+        if title == "良好" {
+            return AppTheme.primary
         }
         if title == "需改进" {
             return AppTheme.warning

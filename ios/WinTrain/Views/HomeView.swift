@@ -9,6 +9,7 @@ struct HomeView: View {
         static let subsectionSpacing: CGFloat = 16
         static let cardCornerRadius: CGFloat = 32
         static let exerciseCardHeight: CGFloat = 128
+        static let exerciseCardSpacing: CGFloat = 16
     }
 
     @EnvironmentObject private var environment: AppEnvironment
@@ -23,7 +24,7 @@ struct HomeView: View {
     }
 
     private var quickExercises: [Exercise] {
-        Array(viewModel.exercises.prefix(2))
+        viewModel.exercises
     }
 
     var body: some View {
@@ -123,45 +124,59 @@ struct HomeView: View {
         VStack(alignment: .leading, spacing: Layout.subsectionSpacing) {
             AppSectionLabel(title: "选择动作")
 
-            LazyVGrid(columns: [
-                GridItem(.flexible(), spacing: 16),
-                GridItem(.flexible(), spacing: 16),
-            ], spacing: 16) {
-                ForEach(quickExercises) { exercise in
-                    Button {
-                        router.push(.guide(exerciseID: exercise.id))
-                    } label: {
-                        Color.clear
-                            .frame(maxWidth: .infinity, minHeight: Layout.exerciseCardHeight, maxHeight: Layout.exerciseCardHeight)
-                            .overlay {
-                                AppRemoteImage(assetName: exercise.imageAssetName, contentMode: .fill)
+            GeometryReader { proxy in
+                let cardWidth = max((proxy.size.width - (Layout.exerciseCardSpacing * 1.5)) / 2.5, 120)
+
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: Layout.exerciseCardSpacing) {
+                        ForEach(quickExercises) { exercise in
+                            Button {
+                                router.push(.guide(exerciseID: exercise.id))
+                            } label: {
+                                quickExerciseCard(exercise: exercise, cardWidth: cardWidth)
                             }
-                            .overlay {
-                                LinearGradient(
-                                    colors: [.clear, Color.black.opacity(0.15), Color.black.opacity(0.8)],
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                )
-                            }
-                            .overlay(alignment: .bottomLeading) {
-                                Text(exercise.name)
-                                    .font(.system(size: 16, weight: .bold))
-                                    .foregroundStyle(.white)
-                                    .padding(.horizontal, 14)
-                                    .padding(.bottom, 10)
-                                    .shadow(color: Color.black.opacity(0.35), radius: 8, y: 4)
-                            }
-                            .background(AppTheme.card)
-                            .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 24, style: .continuous)
-                                    .stroke(Color.white.opacity(0.05), lineWidth: 1)
-                            )
+                            .buttonStyle(.plain)
+                        }
                     }
-                    .buttonStyle(.plain)
+                    .padding(.trailing, cardWidth * 0.2)
                 }
             }
+            .frame(height: Layout.exerciseCardHeight)
         }
+    }
+
+    private func quickExerciseCard(exercise: Exercise, cardWidth: CGFloat) -> some View {
+        let cardShape = RoundedRectangle(cornerRadius: 24, style: .continuous)
+        let gradient = LinearGradient(
+            colors: [.clear, Color.black.opacity(0.15), Color.black.opacity(0.8)],
+            startPoint: .top,
+            endPoint: .bottom
+        )
+
+        return Color.clear
+            .frame(width: cardWidth, height: Layout.exerciseCardHeight)
+            .overlay {
+                AppRemoteImage(assetName: exercise.imageAssetName, contentMode: .fill)
+            }
+            .overlay {
+                gradient
+            }
+            .overlay(alignment: .bottomLeading) {
+                Text(exercise.name)
+                    .font(.system(size: 15, weight: .bold))
+                    .foregroundStyle(.white)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 14)
+                    .padding(.bottom, 12)
+                    .shadow(color: Color.black.opacity(0.35), radius: 8, y: 4)
+            }
+            .background(AppTheme.card)
+            .clipShape(cardShape)
+            .overlay(
+                cardShape.stroke(Color.white.opacity(0.05), lineWidth: 1)
+            )
     }
 
     private func recentSection(record recentRecord: HistoryRecord) -> some View {
@@ -259,11 +274,29 @@ struct HomeView: View {
     }
 
     private func recentSummaryIcon(for result: AnalysisResult) -> String {
-        resultStatusTitle(for: result) == "优秀" ? "checkmark.circle.fill" : "exclamationmark.triangle.fill"
+        switch resultStatusTitle(for: result) {
+        case "优秀":
+            return "checkmark.circle.fill"
+        case "良好":
+            return "checkmark.seal.fill"
+        case "需改进":
+            return "exclamationmark.triangle.fill"
+        default:
+            return "info.circle.fill"
+        }
     }
 
     private func recentSummaryColor(for result: AnalysisResult) -> Color {
-        resultStatusTitle(for: result) == "优秀" ? AppTheme.success : AppTheme.warning
+        switch resultStatusTitle(for: result) {
+        case "优秀":
+            return AppTheme.success
+        case "良好":
+            return AppTheme.primary
+        case "需改进":
+            return AppTheme.warning
+        default:
+            return AppTheme.textSecondary
+        }
     }
 
     @ViewBuilder

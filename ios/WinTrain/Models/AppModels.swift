@@ -1,8 +1,28 @@
 import Foundation
 
+enum ExerciseBodyPart: String, CaseIterable, Codable, Hashable, Identifiable {
+    case legs
+    case chest
+    case back
+
+    var id: String { rawValue }
+
+    var title: String {
+        switch self {
+        case .legs:
+            return "腿部"
+        case .chest:
+            return "胸部"
+        case .back:
+            return "背部"
+        }
+    }
+}
+
 struct Exercise: Identifiable, Hashable {
     let id: String
     let name: String
+    let bodyPart: ExerciseBodyPart
     let targets: String
     let cameraHint: String
     let imageAssetName: String
@@ -11,6 +31,56 @@ struct Exercise: Identifiable, Hashable {
 
     var view: String {
         cameraHint
+    }
+
+    var guideCameraHeight: String {
+        switch id {
+        case "squat":
+            return "髋部附近高度"
+        case "bench-press":
+            return "凳面到头部附近高度"
+        case "barbell-row":
+            return "腰部附近高度"
+        case "deadlift":
+            return "腰部到髋部附近高度"
+        default:
+            return "上半身到头部附近高度"
+        }
+    }
+
+    var guideRequirements: [String] {
+        switch id {
+        case "squat":
+            return [
+                "能看到杠铃、躯干、髋、膝、踝、脚",
+                "能观察杠铃路径与身体稳定性",
+                "能看到完整下蹲和站起过程",
+            ]
+        case "bench-press":
+            return [
+                "能看到杠铃、手腕、前臂、肘、肩、胸廓",
+                "能观察臀部和板凳的接触情况",
+                "能看到完整下放和上推过程",
+            ]
+        case "barbell-row":
+            return [
+                "能看到头颈、躯干、髋、膝、小腿、肘部",
+                "能观察躯干是否固定、是否起身借力",
+                "能看到完整拉起和回程过程",
+            ]
+        case "deadlift":
+            return [
+                "能看到头颈、背部、髋、膝、小腿、杠铃",
+                "能观察背部是否平直、杠铃是否贴近身体",
+                "能看到完整起拉离地和锁定过程",
+            ]
+        default:
+            return [
+                "能看到头、肩、肘、杆、躯干",
+                "能观察到身体是否后仰",
+                "能看到下拉到底与放回过程",
+            ]
+        }
     }
 }
 
@@ -139,6 +209,7 @@ extension Exercise {
         Exercise(
             id: "squat",
             name: "杠铃深蹲",
+            bodyPart: .legs,
             targets: "股四头肌、臀大肌",
             cameraHint: "侧前方 30°～45°",
             imageAssetName: "SquatGuide",
@@ -148,16 +219,52 @@ extension Exercise {
         Exercise(
             id: "lat-pulldown",
             name: "坐姿高位下拉",
+            bodyPart: .back,
             targets: "背阔肌、大圆肌",
             cameraHint: "侧后方 30°～45°",
             imageAssetName: "LatPulldownGuide",
             defaultWeight: "50kg",
             defaultReps: "10×4"
         ),
+        Exercise(
+            id: "bench-press",
+            name: "杠铃卧推",
+            bodyPart: .chest,
+            targets: "胸大肌、三角肌前束、肱三头肌",
+            cameraHint: "侧前方 30°～45°",
+            imageAssetName: "BenchPressGuide",
+            defaultWeight: "60kg",
+            defaultReps: "8×4"
+        ),
+        Exercise(
+            id: "barbell-row",
+            name: "杠铃划船",
+            bodyPart: .back,
+            targets: "背阔肌、大圆肌、菱形肌、后三角",
+            cameraHint: "侧面 90°",
+            imageAssetName: "BarbellRowGuide",
+            defaultWeight: "60kg",
+            defaultReps: "8×4"
+        ),
+        Exercise(
+            id: "deadlift",
+            name: "杠铃硬拉",
+            bodyPart: .legs,
+            targets: "臀大肌、腘绳肌、竖脊肌",
+            cameraHint: "侧面 90°",
+            imageAssetName: "DeadliftGuide",
+            defaultWeight: "100kg",
+            defaultReps: "5×4"
+        ),
     ]
 
     static func find(_ id: String) -> Exercise {
         supported.first(where: { $0.id == id }) ?? supported[0]
+    }
+
+    static func supported(bodyPart: ExerciseBodyPart?) -> [Exercise] {
+        guard let bodyPart else { return supported }
+        return supported.filter { $0.bodyPart == bodyPart }
     }
 }
 

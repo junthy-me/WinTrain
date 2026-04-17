@@ -24,13 +24,17 @@ The analysis contract SHALL distinguish `success`, `low_confidence`, and `failed
 - **WHEN** the backend completes an analysis with confident structured output
 - **THEN** it returns `status: success` with structured feedback items and clip metadata
 
+#### Scenario: Successful analysis with no issues
+- **WHEN** the backend completes a confident analysis and finds no issue that requires focused correction
+- **THEN** it returns `status: success`, a non-empty `overall_summary`, and `feedbacks: []`
+
 #### Scenario: Low-confidence analysis response
 - **WHEN** the backend determines the result is not reliable enough for user feedback
-- **THEN** it returns `status: low_confidence` without treating the request as a billable success
+- **THEN** it returns `status: low_confidence` with a non-empty `low_confidence_reason` and without treating the request as a billable success
 
 #### Scenario: Technical failure response
 - **WHEN** the backend cannot complete analysis because of processing or provider failure
-- **THEN** it returns `status: failed` or a documented error code that the client can map to retry behavior
+- **THEN** it returns `status: failed` with a non-empty `overall_summary`, or a documented error code that the client can map to retry behavior
 
 ### Requirement: Error handling SHALL use documented machine-readable codes
 The API contract SHALL define machine-readable error codes for quota exhaustion, validation failure, upload failure, and subscription-related failures so the client can render consistent behavior.

@@ -104,3 +104,26 @@ func TestAnalysisEndpointConsumesQuotaOnSuccess(t *testing.T) {
 		t.Fatalf("expected 200, got %d: %s", response.Code, response.Body.String())
 	}
 }
+
+func TestSupportedExerciseID(t *testing.T) {
+	tests := []struct {
+		exerciseID string
+		want       bool
+	}{
+		{exerciseID: "squat", want: true},
+		{exerciseID: "lat-pulldown", want: true},
+		{exerciseID: "bench-press", want: true},
+		{exerciseID: "barbell-row", want: true},
+		{exerciseID: "deadlift", want: true},
+		{exerciseID: "unknown", want: false},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.exerciseID, func(t *testing.T) {
+			got := supportedExerciseID(tc.exerciseID)
+			if got != tc.want {
+				t.Fatalf("supportedExerciseID(%q) = %v, want %v", tc.exerciseID, got, tc.want)
+			}
+		})
+	}
+}

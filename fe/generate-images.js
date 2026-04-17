@@ -48,6 +48,21 @@ async function run() {
     "A professional fitness instructional photo of a person performing a seated lat pulldown on a cable machine in a gym. The camera angle is from the back-side at 45 degrees, at head height. The person is pulling the bar down. Full body and machine are visible including head, shoulders, chest, elbows, the bar, and torso. Clear lighting, professional gym setting, photorealistic.",
     "lat-pulldown.jpg"
   );
+
+  await generateAndSave(
+    "A professional fitness instructional photo of a person performing a barbell bench press in a gym. The camera angle is from the front-side at 45 degrees, at bench-to-head height. The lifter is lying on a flat bench and pressing a loaded barbell. Full body, bench, and barbell are visible including wrists, forearms, elbows, shoulders, chest, hips, and both feet on the floor. Clear lighting, professional gym setting, photorealistic.",
+    "bench-press.jpg"
+  );
+
+  await generateAndSave(
+    "A professional fitness instructional photo of a person performing a barbell row in a gym. The camera angle is from the side at 90 degrees, at waist height. The lifter is in a stable hip-hinge position and rowing a loaded barbell toward the lower abdomen. Full body is visible including head, neck, torso, hips, knees, shins, elbows, and the barbell path close to the thighs. Clear lighting, professional gym setting, photorealistic.",
+    "barbell-row.jpg"
+  );
+
+  await generateAndSave(
+    "A professional fitness instructional photo of a person performing a conventional barbell deadlift in a gym. The camera angle is from the side at 90 degrees, at hip height. The lifter is pulling a loaded barbell from the floor with a neutral spine and the bar close to the legs. Full body is visible including head, back, hips, knees, shins, feet, and the full barbell path. Clear lighting, professional gym setting, photorealistic.",
+    "deadlift.jpg"
+  );
 }
 
 run();

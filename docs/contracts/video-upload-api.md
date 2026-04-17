@@ -15,7 +15,7 @@
 
 | 字段 | 类型 | 必填 | 说明 |
 |------|------|------|------|
-| `exercise_id` | string | 是 | `squat` / `lat-pulldown` |
+| `exercise_id` | string | 是 | `squat` / `lat-pulldown` / `bench-press` / `barbell-row` / `deadlift` |
 | `video` | file | 是 | `mp4` / `mov` |
 | `client_request_id` | string | 否 | 客户端幂等追踪 |
 

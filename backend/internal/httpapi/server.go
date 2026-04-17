@@ -78,7 +78,7 @@ func (s *Server) handleAnalysis(writer http.ResponseWriter, request *http.Reques
 	}
 
 	exerciseID := request.FormValue("exercise_id")
-	if exerciseID != "squat" && exerciseID != "lat-pulldown" {
+	if !supportedExerciseID(exerciseID) {
 		writeError(writer, domain.ErrInvalidExerciseID)
 		return
 	}
@@ -279,6 +279,15 @@ func toAppError(err error) *domain.AppError {
 func allowedVideoFilename(filename string) bool {
 	extension := strings.ToLower(filepath.Ext(filename))
 	return extension == ".mp4" || extension == ".mov"
+}
+
+func supportedExerciseID(exerciseID string) bool {
+	switch exerciseID {
+	case "squat", "lat-pulldown", "bench-press", "barbell-row", "deadlift":
+		return true
+	default:
+		return false
+	}
 }
 
 // newSessionID generates a collision-resistant session ID using 8 random bytes.

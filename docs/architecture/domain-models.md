@@ -47,7 +47,7 @@ AnalysisSession
 AnalysisResult
 - session_id: string
 - status: success | low_confidence | failed
-- exercise_id: squat | lat-pulldown
+- exercise_id: squat | lat-pulldown | bench-press | barbell-row | deadlift
 - overall_summary: string
 - memory_cue: string?
 - low_confidence_reason: string?

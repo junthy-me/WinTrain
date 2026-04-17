@@ -400,40 +400,56 @@ extension Color {
 func resultStatusStyle(for result: AnalysisResult?) -> StatusChipStyle {
     guard let result else {
         return StatusChipStyle(
-            foreground: AppTheme.danger,
-            background: AppTheme.danger.opacity(0.12),
-            border: AppTheme.danger.opacity(0.3)
+            foreground: AppTheme.textSecondary,
+            background: AppTheme.textSecondary.opacity(0.12),
+            border: AppTheme.textSecondary.opacity(0.3)
         )
     }
 
-    if result.status == "low_confidence" {
+    switch resultStatusTitle(for: result) {
+    case "低置信度":
         return StatusChipStyle(
             foreground: AppTheme.warning,
             background: AppTheme.warning.opacity(0.12),
             border: AppTheme.warning.opacity(0.3)
         )
-    }
-
-    let hasMajorFeedback = result.feedbacks.contains { $0.severity != "info" }
-    if hasMajorFeedback {
+    case "需改进":
         return StatusChipStyle(
             foreground: AppTheme.warning,
             background: AppTheme.warning.opacity(0.12),
             border: AppTheme.warning.opacity(0.3)
         )
+    case "良好":
+        return StatusChipStyle(
+            foreground: AppTheme.primary,
+            background: AppTheme.primary.opacity(0.12),
+            border: AppTheme.primary.opacity(0.3)
+        )
+    case "优秀":
+        return StatusChipStyle(
+            foreground: AppTheme.success,
+            background: AppTheme.success.opacity(0.12),
+            border: AppTheme.success.opacity(0.3)
+        )
+    default:
+        return StatusChipStyle(
+            foreground: AppTheme.textSecondary,
+            background: AppTheme.textSecondary.opacity(0.12),
+            border: AppTheme.textSecondary.opacity(0.3)
+        )
     }
-
-    return StatusChipStyle(
-        foreground: AppTheme.success,
-        background: AppTheme.success.opacity(0.12),
-        border: AppTheme.success.opacity(0.3)
-    )
 }
 
 func resultStatusTitle(for result: AnalysisResult) -> String {
     if result.status == "low_confidence" {
         return "低置信度"
     }
+    if result.status == "failed" {
+        return "分析失败"
+    }
+    if result.feedbacks.isEmpty {
+        return "优秀"
+    }
     let hasMajorFeedback = result.feedbacks.contains { $0.severity != "info" }
-    return hasMajorFeedback ? "需改进" : "优秀"
+    return hasMajorFeedback ? "需改进" : "良好"
 }

@@ -2,6 +2,15 @@ import SwiftUI
 
 struct SelectionView: View {
     @EnvironmentObject private var router: AppRouter
+    @State private var selectedBodyPartID = "all"
+
+    private var filteredExercises: [Exercise] {
+        Exercise.supported(bodyPart: selectedBodyPart)
+    }
+
+    private var selectedBodyPart: ExerciseBodyPart? {
+        ExerciseBodyPart(rawValue: selectedBodyPartID)
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -14,7 +23,9 @@ struct SelectionView: View {
 
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 16) {
-                    ForEach(Exercise.supported) { exercise in
+                    bodyPartFilterSection
+
+                    ForEach(filteredExercises) { exercise in
                         Button {
                             router.push(.guide(exerciseID: exercise.id))
                         } label: {
@@ -51,7 +62,6 @@ struct SelectionView: View {
                         }
                         .buttonStyle(.plain)
                     }
-
                 }
                 .frame(maxWidth: .infinity, alignment: .topLeading)
                 .padding(.horizontal, 16)
@@ -61,6 +71,45 @@ struct SelectionView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(AppSurfaceBackground())
+    }
+
+    private var bodyPartFilterSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("按锻炼部位筛选")
+                .font(.system(size: 13, weight: .bold))
+                .foregroundStyle(AppTheme.textSecondary)
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 10) {
+                    bodyPartFilterChip(title: "全部", value: "all")
+                    ForEach(ExerciseBodyPart.allCases) { bodyPart in
+                        bodyPartFilterChip(title: bodyPart.title, value: bodyPart.rawValue)
+                    }
+                }
+                .padding(.vertical, 2)
+            }
+        }
+    }
+
+    private func bodyPartFilterChip(title: String, value: String) -> some View {
+        let isSelected = selectedBodyPartID == value
+
+        return Button {
+            selectedBodyPartID = value
+        } label: {
+            Text(title)
+                .font(.system(size: 13, weight: isSelected ? .bold : .medium))
+                .foregroundStyle(isSelected ? .white : AppTheme.textSecondary)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 10)
+                .background(isSelected ? AppTheme.primary : AppTheme.cardMuted)
+                .overlay(
+                    Capsule()
+                        .stroke(isSelected ? AppTheme.primary : AppTheme.border, lineWidth: 1)
+                )
+                .clipShape(Capsule())
+        }
+        .buttonStyle(.plain)
     }
 
     private func selectionLine(text: String) -> some View {

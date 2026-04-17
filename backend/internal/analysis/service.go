@@ -113,6 +113,57 @@ func (p *MockProvider) Analyze(_ context.Context, request ProviderRequest) (*Pro
 				},
 			},
 		}, nil
+	case "bench-press":
+		return &ProviderResponse{
+			Status:         "success",
+			OverallSummary: "整体卧推动作连贯，但下放到底时手腕明显后折。",
+			MemoryCue:      stringPointer("手腕叠前臂，脚跟踩稳。"),
+			Feedbacks: []domain.Feedback{
+				{
+					Rank:        1,
+					Title:       "手腕后折",
+					Description: "下放到底附近，杠铃压在手掌上方，手腕后折明显。",
+					HowToFix:    "让杠更靠近掌根，保持手腕叠在前臂正上方，必要时先减轻重量。",
+					Cue:         "手腕叠前臂。",
+					Severity:    "major",
+					Clip:        &domain.Clip{StartMS: 2100, EndMS: 3600},
+				},
+			},
+		}, nil
+	case "barbell-row":
+		return &ProviderResponse{
+			Status:         "success",
+			OverallSummary: "整体能完成杠铃划船，但拉起时伴随明显起身借力。",
+			MemoryCue:      stringPointer("背角别变，肘往后划。"),
+			Feedbacks: []domain.Feedback{
+				{
+					Rank:        1,
+					Title:       "躯干起身借力",
+					Description: "拉起杠铃时胸口和髋部一起抬高，借了伸髋的惯性。",
+					HowToFix:    "先把曲髋姿势站稳，保持背角基本不变，只让手肘向后划。",
+					Cue:         "背角别变。",
+					Severity:    "major",
+					Clip:        &domain.Clip{StartMS: 1800, EndMS: 3200},
+				},
+			},
+		}, nil
+	case "deadlift":
+		return &ProviderResponse{
+			Status:         "success",
+			OverallSummary: "整体能完成硬拉，但起拉时杠铃明显离身。",
+			MemoryCue:      stringPointer("先把背打直收紧，杠贴腿走。"),
+			Feedbacks: []domain.Feedback{
+				{
+					Rank:        1,
+					Title:       "杠铃离身",
+					Description: "起拉离地后，杠铃明显向前离开小腿和大腿，轨迹偏离身体。",
+					HowToFix:    "起拉前先把背打直收紧，保持杠铃沿腿贴着上滑，不要把杠往前带走。",
+					Cue:         "杠贴腿走。",
+					Severity:    "major",
+					Clip:        &domain.Clip{StartMS: 1500, EndMS: 3000},
+				},
+			},
+		}, nil
 	default:
 		return &ProviderResponse{
 			Status:         "success",
@@ -230,31 +281,19 @@ func (p *OpenAICompatibleProvider) Analyze(ctx context.Context, request Provider
 
 func normalizeProviderResponse(response *ProviderResponse) *ProviderResponse {
 	if response == nil {
-		reason := "provider returned no structured result"
 		return &ProviderResponse{
-			Status:              "failed",
-			OverallSummary:      "本次分析未成功生成结构化结果。",
-			MemoryCue:           nil,
-			LowConfidenceReason: &reason,
+			Status:         "failed",
+			OverallSummary: "本次分析未成功生成结构化结果。",
+			MemoryCue:      nil,
+			Feedbacks:      []domain.Feedback{},
 		}
-	}
-
-	switch response.Status {
-	case "success", "low_confidence", "failed":
-	default:
-		reason := "provider status is invalid or missing"
-		response.Status = "low_confidence"
-		response.LowConfidenceReason = &reason
 	}
 
 	response.OverallSummary = strings.TrimSpace(response.OverallSummary)
-	if response.MemoryCue != nil {
-		trimmed := strings.TrimSpace(*response.MemoryCue)
-		if trimmed == "" {
-			response.MemoryCue = nil
-		} else {
-			response.MemoryCue = &trimmed
-		}
+	response.MemoryCue = trimOptionalString(response.MemoryCue)
+	response.LowConfidenceReason = trimOptionalString(response.LowConfidenceReason)
+	if response.Feedbacks == nil {
+		response.Feedbacks = []domain.Feedback{}
 	}
 
 	for index := range response.Feedbacks {
@@ -265,17 +304,61 @@ func normalizeProviderResponse(response *ProviderResponse) *ProviderResponse {
 		response.Feedbacks[index].Cue = strings.TrimSpace(response.Feedbacks[index].Cue)
 	}
 
-	if response.Status == "success" && len(response.Feedbacks) == 0 {
-		reason := "provider omitted feedback items"
-		response.Status = "low_confidence"
-		response.LowConfidenceReason = &reason
+	switch response.Status {
+	case "success", "low_confidence", "failed":
+	default:
+		response.Status = compensateProviderStatus(response)
 	}
+
 	if response.Status == "low_confidence" && response.LowConfidenceReason == nil {
 		reason := "provider could not reliably analyze the movement"
 		response.LowConfidenceReason = &reason
 	}
+	if response.Status != "low_confidence" {
+		response.LowConfidenceReason = nil
+	}
+	if response.Status == "failed" {
+		response.Feedbacks = []domain.Feedback{}
+	}
+	if response.Status == "success" && response.OverallSummary == "" {
+		if len(response.Feedbacks) == 0 {
+			response.OverallSummary = "整体动作稳定，未发现需要重点纠正的问题。"
+		} else {
+			response.OverallSummary = "本次分析已完成，请重点查看下方反馈。"
+		}
+	}
+	if response.Status == "low_confidence" && response.OverallSummary == "" {
+		response.OverallSummary = "当前视频无法支持可靠的动作判断。"
+	}
+	if response.Status == "failed" && response.OverallSummary == "" {
+		response.OverallSummary = "本次分析未成功生成结构化结果。"
+	}
 
 	return response
+}
+
+func compensateProviderStatus(response *ProviderResponse) string {
+	if response == nil {
+		return "failed"
+	}
+	if response.LowConfidenceReason != nil {
+		return "low_confidence"
+	}
+	if response.OverallSummary != "" && response.Feedbacks != nil {
+		return "success"
+	}
+	return "failed"
+}
+
+func trimOptionalString(value *string) *string {
+	if value == nil {
+		return nil
+	}
+	trimmed := strings.TrimSpace(*value)
+	if trimmed == "" {
+		return nil
+	}
+	return &trimmed
 }
 
 func normalizeSeverity(raw string) string {
@@ -290,10 +373,18 @@ func normalizeSeverity(raw string) string {
 }
 
 func promptForExercise(exerciseID string) string {
-	if exerciseID == "lat-pulldown" {
+	switch exerciseID {
+	case "lat-pulldown":
 		return latPulldownPrompt
+	case "bench-press":
+		return benchPressPrompt
+	case "barbell-row":
+		return barbellRowPrompt
+	case "deadlift":
+		return deadliftPrompt
+	default:
+		return squatPrompt
 	}
-	return squatPrompt
 }
 
 func buildVideoContent(videoPath string, fps int) (map[string]any, error) {
